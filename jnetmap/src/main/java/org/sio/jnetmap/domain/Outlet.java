@@ -34,26 +34,29 @@ public class Outlet {
 	@SuppressWarnings("unchecked")
 	public static List<Outlet> findOutletsOfBuilding(Long id) {
 		return entityManager().createNativeQuery(
-				"SELECT distinct o.* FROM Outlet o, Room r, Building b WHERE o.room_outlet=r.id and r.building_room=b.id and b.id="+id, Outlet.class)
+				"SELECT o.* FROM Outlet o, Room r, Building b WHERE o.room_outlet=r.id and r.building_room=b.id and b.id="+id+" ORDER BY r.name_room, o.num_outlet", Outlet.class)
 				.getResultList();
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static List<Outlet> findOutletsOfRoomAndBand(Long idRoom, Long idBand) {
-		return entityManager().createQuery(
-				"SELECT o FROM Outlet o WHERE o.roomOutlet.id=" + idRoom
-						+ " and o.bandOutlet.id=" + idBand, Outlet.class)
+		return entityManager().createNativeQuery(
+				"SELECT o.* FROM Outlet o, Room r WHERE o.room_outlet=r.id and  o.room_outlet=" + idRoom
+						+ " and o.band_outlet=" + idBand+" ORDER BY r.name_room, o.num_outlet", Outlet.class)
 				.getResultList();
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static List<Outlet> findOutletsOfRoom(Long idRoom) {
-		return entityManager().createQuery(
-				"SELECT o FROM Outlet o WHERE o.roomOutlet.id=" + idRoom, Outlet.class)
+		return entityManager().createNativeQuery(
+				"SELECT o.* FROM Outlet o, Room r WHERE o.room_outlet=r.id and o.room_outlet=" + idRoom+" ORDER BY r.name_room, o.num_outlet", Outlet.class)
 				.getResultList();
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static List<Outlet> findOutletsOfBand(Long idBand) {
-		return entityManager().createQuery(
-				"SELECT o FROM Outlet o WHERE o.bandOutlet.id=" + idBand, Outlet.class)
+		return entityManager().createNativeQuery(
+				"SELECT o.* FROM Outlet o, Room r WHERE o.room_outlet=r.id and o.band_outlet=" + idBand+" ORDER BY r.name_room, o.num_outlet", Outlet.class)
 				.getResultList();
 	}
 }

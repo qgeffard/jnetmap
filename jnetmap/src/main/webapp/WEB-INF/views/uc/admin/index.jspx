@@ -159,6 +159,7 @@
 		</util:panel>
 		
 		<c:set var="idRoom" value="-1"></c:set>
+		<c:set var="idBand" value="-1"></c:set>
 		<util:panel title="Outlets (${outletsCount})" id="outlets">
 			<select id="outlet" name="outlet"
 				onChange="document.getElementById('selected').value='outlet';document.getElementById('formadmin').submit()">
@@ -168,10 +169,18 @@
 						<c:set var="idRoom" value="${outlet.roomOutlet.id}"></c:set>
 						<c:forEach items="${rooms}" var="room">
 							<c:if test="${room.id == idRoom}">
-								<c:set var="nameRoom" value="${room.nameRoom}"></c:set>
+								<c:set var="name" value="${room.nameRoom}"></c:set>
 							</c:if>
 						</c:forEach>
-						<optgroup label="${nameRoom}"></optgroup>
+						<c:if test="${idBand != outlet.bandOutlet.id and name == 'N/A'}">
+							<c:set var="idBand" value="${outlet.bandOutlet.id}"></c:set>
+							<c:forEach items="${bands}" var="band">
+								<c:if test="${band.id == idBand}">
+									<c:set var="name" value="${band.numBand}"></c:set>
+								</c:if>
+							</c:forEach>
+						</c:if>
+						<optgroup label="${name}"></optgroup>
 					</c:if>
 					<c:if test="${outlet.id == outletId}">
 						<option value="${outlet.id}" selected="selected">${outlet.numOutlet}</option>

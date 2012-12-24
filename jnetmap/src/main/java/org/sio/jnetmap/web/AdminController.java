@@ -196,7 +196,6 @@ public class AdminController {
 			if(bandId != 0){
 				Dispatcher dispatcher = Dispatcher.findDispatcherOfBand(bandId);
 				Building building = Building.findBuildingOfDispatcher(dispatcher.getId());
-				dispatchers = Dispatcher.findDispatchersOfBuilding(building.getId());
 				bands = Band.findBandsOfDispatcher(dispatcher.getId());
 				rooms = Room.findRoomsOfBuilding(building.getId());
 				netSwitches = NetSwitch.findNetSwitchesOfDispatcher(dispatcher.getId());
@@ -207,8 +206,10 @@ public class AdminController {
 				}
 				if(netSwitchId == 0){
 					netModules = NetModule.findNetModulesOfBuilding(building.getId());
+					dispatchers = Dispatcher.findDispatchersOfBuilding(building.getId());
 				}else{
 					netModules = NetModule.findNetModulesOfNetSwitch(netSwitchId);
+					dispatchers = Dispatcher.findDispatchersOfNetSwitch(netSwitchId);
 				}
 				modelMap.addAttribute("dispatcherId", dispatcher.getId());
 				modelMap.addAttribute("buildingId", building.getId());
@@ -260,12 +261,9 @@ public class AdminController {
 				}else{
 					outlets = Outlet.findOutletsOfBuilding(building.getId());
 				}
-				if(dispatcherId != 0){
-					netSwitches = NetSwitch.findNetSwitchesOfDispatcher(dispatcherId);
-				}else{
-					netSwitches = NetSwitch.findNetSwitchesOfBuilding(building.getId());
-				}
+				netSwitches = NetSwitch.findNetSwitchesOfDispatcher(dispatchers.get(1).getId());
 				netModules = NetModule.findNetModulesOfNetSwitch(netSwitchId);
+				modelMap.addAttribute("dispatcherId", dispatchers.get(1).getId());
 				modelMap.addAttribute("buildingId", building.getId());
 				modelMap.addAttribute("netSwitchId", netSwitchId);
 			}else{
@@ -289,9 +287,9 @@ public class AdminController {
 				}
 				netModules = NetModule.findNetModulesOfBuilding(buildId);
 				modelMap.addAttribute("buildingId", buildId);
+				modelMap.addAttribute("dispatcherId", dispatcherId);
 			}
 			modelMap.addAttribute("roomId", roomId);
-			modelMap.addAttribute("dispatcherId", dispatcherId);
 			modelMap.addAttribute("bandId", bandId);
 		}
 		
