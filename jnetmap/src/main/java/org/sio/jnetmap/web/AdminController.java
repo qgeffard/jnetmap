@@ -36,7 +36,7 @@ public class AdminController {
 		List<Band> bands = Band.findAllBandsOrder();
 		List<NetSwitch> netSwitches = NetSwitch.findAllNetSwitchesOrder();
 		List<Outlet> outlets = Outlet.findAllOutletsOrder();
-		List<NetModule> netModules = NetModule.findAllNetModules();
+		List<NetModule> netModules = NetModule.findAllNetModulesOrder();
 
 		String strBuildId = wr.getParameter("building");
 		String strRoomId = wr.getParameter("room");
@@ -104,10 +104,16 @@ public class AdminController {
 			if(roomId != 0){
 				Building building = Building.findBuildingOfRoom(roomId);
 				rooms = Room.findRoomsOfBuilding(building.getId());
-				dispatchers = Dispatcher.findDispatchersOfBuilding(building.getId());
-				bands = Band.findBandsOfBuilding(building.getId());
+				if(netSwitchId != 0){
+					dispatchers = Dispatcher.findDispatchersOfNetSwitch(netSwitchId);
+					bands = Band.findBandsOfNetSwitch(netSwitchId);
+					netModules = NetModule.findNetModulesOfNetSwitch(netSwitchId);
+				}else{
+					dispatchers = Dispatcher.findDispatchersOfBuilding(building.getId());
+					bands = Band.findBandsOfBuilding(building.getId());
+					netModules = NetModule.findNetModulesOfBuilding(building.getId());
+				}
 				netSwitches = NetSwitch.findNetSwitchesOfBuilding(building.getId());
-				netModules = NetModule.findNetModulesOfBuilding(building.getId());
 				if(bandId == 0){
 					outlets = Outlet.findOutletsOfRoom(roomId);
 				}else{
@@ -127,10 +133,16 @@ public class AdminController {
 					outlets = Outlet.findOutletsOfBuilding(buildId);
 				}
 				rooms = Room.findRoomsOfBuilding(buildId);
-				dispatchers = Dispatcher.findDispatchersOfBuilding(buildId);
-				bands = Band.findBandsOfBuilding(buildId);
+				if(netSwitchId != 0){
+					dispatchers = Dispatcher.findDispatchersOfNetSwitch(netSwitchId);
+					bands = Band.findBandsOfNetSwitch(netSwitchId);
+					netModules = NetModule.findNetModulesOfNetSwitch(netSwitchId);
+				}else{
+					dispatchers = Dispatcher.findDispatchersOfBuilding(buildId);
+					bands = Band.findBandsOfBuilding(buildId);
+					netModules = NetModule.findNetModulesOfBuilding(buildId);
+				}
 				netSwitches = NetSwitch.findNetSwitchesOfBuilding(buildId);
-				netModules = NetModule.findNetModulesOfBuilding(buildId);
 				modelMap.addAttribute("buildingId", buildId);
 			}
 			if(dispatcherId != 0){

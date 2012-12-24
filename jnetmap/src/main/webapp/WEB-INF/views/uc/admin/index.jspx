@@ -183,11 +183,21 @@
 			</select>
 		</util:panel>
 		
+		<c:set var="idSwitch" value="0"></c:set>
 		<util:panel title="Modules (${netModulesCount})" id="modules">
 			<select id="module" name="module"
 				onChange="document.getElementById('selected').value='module';document.getElementById('formadmin').submit()">
 				<option value="0">N/A</option>
 				<c:forEach items="${netModules}" var="module">
+					<c:if test="${idSwitch != module.netSwitchModule.id}">
+						<c:set var="idSwitch" value="${module.netSwitchModule.id}"></c:set>
+						<c:forEach items="${netSwitches}" var="switch">
+							<c:if test="${switch.id == idSwitch}">
+								<c:set var="nameSwitch" value="${switch.nameNetSwitch}"></c:set>
+							</c:if>
+						</c:forEach>
+						<optgroup label="${nameSwitch}"></optgroup>
+					</c:if>
 					<c:if test="${module.id == netModuleId}">
 						<option value="${module.id}" selected="selected">${module.numNetModule}</option>
 					</c:if>

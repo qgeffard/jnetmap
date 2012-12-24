@@ -20,6 +20,11 @@ public class NetModule {
     private NetSwitch netSwitchModule;
     
     @SuppressWarnings("unchecked")
+	public static List<NetModule> findAllNetModulesOrder() {
+        return entityManager().createNativeQuery("SELECT m.* FROM Net_Module m, Net_Switch s WHERE m.id!=0 and m.net_switch_module=s.id ORDER BY s.name_net_switch, m.num_net_module", NetModule.class).getResultList();
+    }
+    
+    @SuppressWarnings("unchecked")
 	public static List<NetModule> findNetModulesOfBuilding(Long id) {
 		return (List<NetModule>) entityManager().createNativeQuery(
 					"SELECT distinct m.* FROM Net_Module m, Net_Switch s, Dispatcher d, Building b WHERE m.net_Switch_Module=s.id and s.dispatcher_net_switch=d.id and d.building_dispatcher=b.id and b.id="
