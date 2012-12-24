@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+    <definition extends="default" name="bands/list">
+        <put-attribute name="body" value="/WEB-INF/views/bands/list.jspx"/>
+    </definition>
+<definition extends="default" name="bands/show">
+        <put-attribute name="body" value="/WEB-INF/views/bands/show.jspx"/>
+    </definition>
+<definition extends="default" name="bands/create">
+        <put-attribute name="body" value="/WEB-INF/views/bands/create.jspx"/>
+    </definition>
+<definition extends="default" name="bands/update">
+        <put-attribute name="body" value="/WEB-INF/views/bands/update.jspx"/>
+    </definition>
+</tiles-definitions>

@@ -1,0 +1,66 @@
+// Spring Roo 1.2.2.RELEASE [rev 7d75659] log opened at 2012-12-13 21:09:44
+project --topLevelPackage org.sio.jnetmap
+jpa setup --provider HIBERNATE --database DERBY_EMBEDDED --databaseName dbJnetmap
+entity jpa --class ~.domain.Building --testAutomatically
+ field string --fieldName nameBuilding --notNull --sizeMin 1 --sizeMax 30
+entity jpa --class ~.domain.Sonde --testAutomatically
+ field string --fieldName macSonde --notNull --sizeMin 2 --sizeMax 30
+ field string --fieldName numSonde --notNull --sizeMin 2 --sizeMax 30
+entity jpa --class ~.domain.Vlan --testAutomatically
+ field number --type int --fieldName numVlan --notNull
+ field string --fieldName nameVlan --notNull --sizeMin 2 --sizeMax 30
+entity jpa --class ~.domain.Dispatcher --testAutomatically
+ field string --fieldName nameDispatcher --notNull --sizeMin 2 --sizeMax 30
+entity jpa --class ~.domain.NetSwitch --testAutomatically
+ field string --fieldName ipNetSwitch --notNull --sizeMin 2 --sizeMax 30
+ field string --fieldName nameNetSwitch --notNull --sizeMin 2 --sizeMax 30
+entity jpa --class ~.domain.Band --testAutomatically
+ field string --fieldName numBand --notNull --sizeMin 2 --sizeMax 30
+entity jpa --class ~.domain.NetModule --testAutomatically
+ field number --type int --fieldName numNetModule --notNull
+entity jpa --class ~.domain.Port --testAutomatically
+ field number --type int --fieldName numPort --notNull
+entity jpa --class ~.domain.Outlet --testAutomatically
+ field string --fieldName numOutlet --notNull --sizeMin 2 --sizeMax 30
+ field number --type int --fieldName portOutlet
+entity jpa --class ~.domain.Room --testAutomatically
+ field string --fieldName nameRoom --notNull --sizeMin 2 --sizeMax 30
+focus --class ~.domain.Room
+ field reference --fieldName buildingRoom --type ~.domain.Building
+focus --class ~.domain.Outlet
+ field reference --fieldName roomOutlet --type ~.domain.Room
+ field reference --fieldName bandOutlet --type ~.domain.Band
+focus --class ~.domain.Port
+ field reference --fieldName vlanPort --type ~.domain.Vlan
+ field reference --fieldName modulePort --type ~.domain.NetModule
+ field reference --fieldName outletPort --type ~.domain.Outlet
+focus --class ~.domain.NetModule
+ field reference --fieldName netSwitchModule --type ~.domain.NetSwitch
+focus --class ~.domain.Band
+ field reference --fieldName dispatcherBand --type ~.domain.Dispatcher
+focus --class ~.domain.Dispatcher
+ field reference --fieldName buildingDispatcher --type ~.domain.Building
+focus --class ~.domain.NetSwitch
+ field reference --fieldName dispatcherNetSwitch --type ~.domain.Dispatcher
+web mvc setup
+web mvc all --package ~.web
+// script --file C:\Users\Florian\Desktop\scriptPOJO-ROO.roo
+quit
+// Spring Roo 1.2.2.RELEASE [rev 7d75659] log closed at 2012-12-13 21:12:17
+// Spring Roo 1.2.2.RELEASE [rev 7d75659] log opened at 2012-12-13 21:17:52
+web mvc controller --class ~.web.AdinController --preferredMapping /uc/admin
+// Spring Roo 1.2.2.RELEASE [rev 7d75659] log closed at 2012-12-13 23:33:16
+// Spring Roo 1.2.2.RELEASE [rev 7d75659] log opened at 2012-12-17 18:52:46
+addon search french
+// Spring Roo 1.2.2.RELEASE [rev 7d75659] log closed at 2012-12-17 23:43:35
+// Spring Roo 1.2.2.RELEASE [rev 7d75659] log opened at 2012-12-18 20:42:45
+hint
+help
+hint upgrade
+help upgrade
+hint
+quit
+// Spring Roo 1.2.2.RELEASE [rev 7d75659] log closed at 2012-12-18 20:45:01
+// Spring Roo 1.2.2.RELEASE [rev 7d75659] log opened at 2012-12-18 20:45:04
+quit
+// Spring Roo 1.2.2.RELEASE [rev 7d75659] log closed at 2012-12-18 20:45:12

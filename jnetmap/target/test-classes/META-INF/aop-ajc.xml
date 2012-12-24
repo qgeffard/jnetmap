@@ -1,0 +1,45 @@
+<aspectj>
+<aspects>
+<aspect name="org.sio.jnetmap.domain.SondeDataOnDemand_Roo_DataOnDemand"/>
+<aspect name="org.sio.jnetmap.domain.NetSwitchDataOnDemand_Roo_Configurable"/>
+<aspect name="org.sio.jnetmap.domain.PortIntegrationTest_Roo_Configurable"/>
+<aspect name="org.sio.jnetmap.domain.DispatcherIntegrationTest_Roo_IntegrationTest"/>
+<aspect name="org.sio.jnetmap.domain.BuildingIntegrationTest_Roo_IntegrationTest"/>
+<aspect name="org.sio.jnetmap.domain.BandIntegrationTest_Roo_Configurable"/>
+<aspect name="org.sio.jnetmap.domain.BandDataOnDemand_Roo_Configurable"/>
+<aspect name="org.sio.jnetmap.domain.OutletIntegrationTest_Roo_IntegrationTest"/>
+<aspect name="org.sio.jnetmap.domain.DispatcherDataOnDemand_Roo_Configurable"/>
+<aspect name="org.sio.jnetmap.domain.BuildingDataOnDemand_Roo_Configurable"/>
+<aspect name="org.sio.jnetmap.domain.RoomIntegrationTest_Roo_Configurable"/>
+<aspect name="org.sio.jnetmap.domain.DispatcherIntegrationTest_Roo_Configurable"/>
+<aspect name="org.sio.jnetmap.domain.PortDataOnDemand_Roo_Configurable"/>
+<aspect name="org.sio.jnetmap.domain.RoomIntegrationTest_Roo_IntegrationTest"/>
+<aspect name="org.sio.jnetmap.domain.NetModuleDataOnDemand_Roo_DataOnDemand"/>
+<aspect name="org.sio.jnetmap.domain.RoomDataOnDemand_Roo_DataOnDemand"/>
+<aspect name="org.sio.jnetmap.domain.BuildingDataOnDemand_Roo_DataOnDemand"/>
+<aspect name="org.sio.jnetmap.domain.BuildingIntegrationTest_Roo_Configurable"/>
+<aspect name="org.sio.jnetmap.domain.VlanDataOnDemand_Roo_DataOnDemand"/>
+<aspect name="org.sio.jnetmap.domain.RoomDataOnDemand_Roo_Configurable"/>
+<aspect name="org.sio.jnetmap.domain.VlanIntegrationTest_Roo_Configurable"/>
+<aspect name="org.sio.jnetmap.domain.BandDataOnDemand_Roo_DataOnDemand"/>
+<aspect name="org.sio.jnetmap.domain.NetModuleIntegrationTest_Roo_IntegrationTest"/>
+<aspect name="org.sio.jnetmap.domain.NetSwitchDataOnDemand_Roo_DataOnDemand"/>
+<aspect name="org.sio.jnetmap.domain.OutletDataOnDemand_Roo_Configurable"/>
+<aspect name="org.sio.jnetmap.domain.SondeDataOnDemand_Roo_Configurable"/>
+<aspect name="org.sio.jnetmap.domain.PortDataOnDemand_Roo_DataOnDemand"/>
+<aspect name="org.sio.jnetmap.domain.NetSwitchIntegrationTest_Roo_IntegrationTest"/>
+<aspect name="org.sio.jnetmap.domain.NetModuleDataOnDemand_Roo_Configurable"/>
+<aspect name="org.sio.jnetmap.domain.OutletIntegrationTest_Roo_Configurable"/>
+<aspect name="org.sio.jnetmap.domain.OutletDataOnDemand_Roo_DataOnDemand"/>
+<aspect name="org.sio.jnetmap.domain.VlanDataOnDemand_Roo_Configurable"/>
+<aspect name="org.sio.jnetmap.domain.PortIntegrationTest_Roo_IntegrationTest"/>
+<aspect name="org.sio.jnetmap.domain.NetSwitchIntegrationTest_Roo_Configurable"/>
+<aspect name="org.sio.jnetmap.domain.SondeIntegrationTest_Roo_Configurable"/>
+<aspect name="org.sio.jnetmap.domain.SondeIntegrationTest_Roo_IntegrationTest"/>
+<aspect name="org.sio.jnetmap.domain.BandIntegrationTest_Roo_IntegrationTest"/>
+<aspect name="org.sio.jnetmap.domain.NetModuleIntegrationTest_Roo_Configurable"/>
+<aspect name="org.sio.jnetmap.domain.VlanIntegrationTest_Roo_IntegrationTest"/>
+<aspect name="org.sio.jnetmap.domain.DispatcherDataOnDemand_Roo_DataOnDemand"/>
+</aspects>
+</aspectj>
+

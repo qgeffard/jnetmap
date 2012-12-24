@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" version="2.0">
+
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+
+	<form action="index" method="post" id="formadmin">
+		<util:panel title="Buildings (${buildingsCount})" id="buildings">
+			<select id="building" name="building"
+				onChange="document.getElementById('selected').value='building';document.getElementById('formadmin').submit()">
+				<c:forEach items="${buildings}" var="build">
+					<c:if test="${build.id==0}">
+						<c:if test="${build.id == buildingId}">
+							<option value="${build.id}" selected="selected">${build.nameBuilding}</option>
+						</c:if>
+						<c:if test="${build.id != buildingId}">
+							<option value="${build.id}">${build.nameBuilding}</option>
+						</c:if>
+					</c:if>
+				</c:forEach>
+				<c:forEach items="${buildings}" var="build">
+					<c:if test="${build.id!=0}">
+						<c:if test="${build.id == buildingId}">
+							<option value="${build.id}" selected="selected">${build.nameBuilding}</option>
+						</c:if>
+						<c:if test="${build.id != buildingId}">
+							<option value="${build.id}">${build.nameBuilding}</option>
+						</c:if>
+					</c:if>
+				</c:forEach>
+			</select>
+		</util:panel>
+		
+		<c:set var="idBuilding" value="-1"></c:set>
+		<util:panel title="Rooms (${roomsCount})" id="rooms">
+			<select id="room" name="room"
+				onChange="document.getElementById('selected').value='room';document.getElementById('formadmin').submit()">
+				<c:forEach items="${rooms}" var="room">
+					<c:if test="${room.id == 0}">
+						<c:if test="${room.id == roomId}">
+							<option value="${room.id}" selected="selected">${room.nameRoom}</option>
+						</c:if>
+						<c:if test="${room.id != roomId}">
+							<option value="${room.id}">${room.nameRoom}</option>
+						</c:if>
+					</c:if>
+				</c:forEach>
+				<c:forEach items="${rooms}" var="room">
+					<c:if test="${room.id != 0}">
+						<c:if test="${idBuilding != room.buildingRoom.id}">
+							<c:set var="idBuilding" value="${room.buildingRoom.id}"></c:set>
+							<c:forEach items="${buildings}" var="build">
+								<c:if test="${build.id == idBuilding}">
+									<c:set var="nameBuilding" value="${build.nameBuilding}"></c:set>
+								</c:if>
+							</c:forEach>
+							<optgroup label="${nameBuilding}"></optgroup>
+						</c:if>
+						<c:if test="${room.id == roomId}">
+							<option value="${room.id}" selected="selected">${room.nameRoom}</option>
+						</c:if>
+						<c:if test="${room.id != roomId}">
+							<option value="${room.id}">${room.nameRoom}</option>
+						</c:if>
+					</c:if>
+				</c:forEach>
+			</select>
+		</util:panel>
+		
+		<c:set var="idBuilding" value="-1"></c:set>
+		<util:panel title="Dispatchers (${dispatchersCount})" id="dispatchers">
+			<select id="dispatcher" name="dispatcher"
+				onChange="document.getElementById('selected').value='dispatcher';document.getElementById('formadmin').submit()">
+				<c:forEach items="${dispatchers}" var="dispatcher">
+					<c:if test="${dispatcher.id == 0}">
+						<c:if test="${dispatcher.id == dispatcherId}">
+							<option value="${dispatcher.id}" selected="selected">${dispatcher.nameDispatcher}</option>
+						</c:if>
+						<c:if test="${dispatcher.id != dispatcherId}">
+							<option value="${dispatcher.id}">${dispatcher.nameDispatcher}</option>
+						</c:if>
+					</c:if>
+				</c:forEach>
+				<c:forEach items="${dispatchers}" var="dispatcher">
+					<c:if test="${dispatcher.id != 0}">
+						<c:if test="${idBuilding != dispatcher.buildingDispatcher.id}">
+							<c:set var="idBuilding" value="${dispatcher.buildingDispatcher.id}"></c:set>
+							<c:forEach items="${buildings}" var="build">
+								<c:if test="${build.id == idBuilding}">
+									<c:set var="nameBuilding" value="${build.nameBuilding}"></c:set>
+								</c:if>
+							</c:forEach>
+							<optgroup label="${nameBuilding}"></optgroup>
+						</c:if>
+						<c:if test="${dispatcher.id == dispatcherId}">
+							<option value="${dispatcher.id}" selected="selected">${dispatcher.nameDispatcher}</option>
+						</c:if>
+						<c:if test="${dispatcher.id != dispatcherId}">
+							<option value="${dispatcher.id}">${dispatcher.nameDispatcher}</option>
+						</c:if>
+					</c:if>
+				</c:forEach>
+			</select>
+		</util:panel>
+		
+		<c:set var="idDispatcher" value="0"></c:set>
+		<util:panel title="Bands (${bandsCount})" id="bands">
+			<select id="band" name="band"
+				onChange="document.getElementById('selected').value='band';document.getElementById('formadmin').submit()">
+				<option value="0">N/A</option>
+				<c:forEach items="${bands}" var="band">
+					<c:if test="${idDispatcher != band.dispatcherBand.id}">
+						<c:set var="idDispatcher" value="${band.dispatcherBand.id}"></c:set>
+						<c:forEach items="${dispatchersBis}" var="dispatcher">
+							<c:if test="${dispatcher.id == idDispatcher}">
+								<c:set var="nameDispatcher" value="${dispatcher.nameDispatcher}"></c:set>
+							</c:if>
+						</c:forEach>
+						<optgroup label="${nameDispatcher}"></optgroup>
+					</c:if>
+					<c:if test="${band.id == bandId}">
+						<option value="${band.id}" selected="selected">${band.numBand}</option>
+					</c:if>
+					<c:if test="${band.id != bandId}">
+						<option value="${band.id}">${band.numBand}</option>
+					</c:if>
+				</c:forEach>
+			</select>
+		</util:panel>
+		
+		<c:set var="idDispatcher" value="0"></c:set>
+		<util:panel title="Switches (${netSwitchesCount})" id="netSwitches">
+			<select id="netSwitch" name="netSwitch"
+				onChange="document.getElementById('selected').value='switch';document.getElementById('formadmin').submit()">
+				<c:forEach items="${netSwitches}" var="netSwitch">
+					<c:if test="${idDispatcher != netSwitch.dispatcherNetSwitch.id and netSwitch.dispatcherNetSwitch.id != 0}">
+						<c:set var="idDispatcher" value="${netSwitch.dispatcherNetSwitch.id}"></c:set>
+						<c:forEach items="${dispatchersBis}" var="dispatcher">
+							<c:if test="${dispatcher.id == idDispatcher}">
+								<c:set var="nameDispatcher" value="${dispatcher.nameDispatcher}"></c:set>
+							</c:if>
+						</c:forEach>
+						<optgroup label="${nameDispatcher}"></optgroup>
+					</c:if>
+					<c:if test="${netSwitch.id == 0}">
+						<option value="${netSwitch.id}">${netSwitch.nameNetSwitch}</option>
+					</c:if>
+					<c:if test="${netSwitch.id == netSwitchId and netSwitch.id != 0}">
+						<option value="${netSwitch.id}" selected="selected">${netSwitch.ipNetSwitch} : ${netSwitch.nameNetSwitch}</option>
+					</c:if>
+					<c:if test="${netSwitch.id != netSwitchId and netSwitch.id != 0}">
+						<option value="${netSwitch.id}">${netSwitch.ipNetSwitch} : ${netSwitch.nameNetSwitch}</option>
+					</c:if>
+				</c:forEach>
+			</select>
+		</util:panel>
+		
+		<c:set var="idRoom" value="-1"></c:set>
+		<util:panel title="Outlets (${outletsCount})" id="outlets">
+			<select id="outlet" name="outlet"
+				onChange="document.getElementById('selected').value='outlet';document.getElementById('formadmin').submit()">
+				<option value="0">N/A</option>
+				<c:forEach items="${outlets}" var="outlet">
+					<c:if test="${idRoom != outlet.roomOutlet.id}">
+						<c:set var="idRoom" value="${outlet.roomOutlet.id}"></c:set>
+						<c:forEach items="${rooms}" var="room">
+							<c:if test="${room.id == idRoom}">
+								<c:set var="nameRoom" value="${room.nameRoom}"></c:set>
+							</c:if>
+						</c:forEach>
+						<optgroup label="${nameRoom}"></optgroup>
+					</c:if>
+					<c:if test="${outlet.id == outletId}">
+						<option value="${outlet.id}" selected="selected">${outlet.numOutlet}</option>
+					</c:if>
+					<c:if test="${outlet.id != outletId}">
+						<option value="${outlet.id}">${outlet.numOutlet}</option>
+					</c:if>
+				</c:forEach>
+			</select>
+		</util:panel>
+		
+		<util:panel title="Modules (${netModulesCount})" id="modules">
+			<select id="module" name="module"
+				onChange="document.getElementById('selected').value='module';document.getElementById('formadmin').submit()">
+				<option value="0">N/A</option>
+				<c:forEach items="${netModules}" var="module">
+					<c:if test="${module.id == netModuleId}">
+						<option value="${module.id}" selected="selected">${module.numNetModule}</option>
+					</c:if>
+					<c:if test="${module.id != netModuleId}">
+						<option value="${module.id}">${module.numNetModule}</option>
+					</c:if>
+				</c:forEach>
+			</select>
+		</util:panel>
+		<input id="selected" name="selected" type="hidden" value="" /> 
+	</form>
+
+</div>

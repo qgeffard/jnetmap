@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:menu="urn:jsptagdir:/WEB-INF/tags/menu" id="menu" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <menu:menu id="_menu" z="nZaf43BjUg1iM0v70HJVEsXDopc=">
+        <menu:category id="c_vlan" z="sXSj/u1XD51SshWmn7N8rGrks5U=">
+            <menu:item id="i_vlan_new" messageCode="global_menu_new" url="/vlans?form" z="kA2BwEY9NKeP5qjczZSmG9B37hw="/>
+            <menu:item id="i_vlan_list" messageCode="global_menu_list" url="/vlans?page=1&amp;size=${empty param.size ? 10 : param.size}" z="GQi1u7Zx9uInDWKt9ItYQptl2QA="/>
+        </menu:category>
+        <menu:category id="c_netswitch" z="P7keCSL44Y/TM02CMQZEeDP5zcI=">
+            <menu:item id="i_netswitch_new" messageCode="global_menu_new" url="/netswitches?form" z="+2PRlZ6ctRQd6Vv4hjA7FCeVyqY="/>
+            <menu:item id="i_netswitch_list" messageCode="global_menu_list" url="/netswitches?page=1&amp;size=${empty param.size ? 10 : param.size}" z="FdI4cs+fHyAklqImyRqf9q0kkQo="/>
+        </menu:category>
+        <menu:category id="c_building" z="J9clnJj+tz7CpJ+H0c4cOuO6+NY=">
+            <menu:item id="i_building_new" messageCode="global_menu_new" url="/buildings?form" z="W9U4jfbgN6FR3/HJqEl19rKCnl4="/>
+            <menu:item id="i_building_list" messageCode="global_menu_list" url="/buildings?page=1&amp;size=${empty param.size ? 10 : param.size}" z="C+A3s/AOSJHp8jjl/SXK0jf0D9c="/>
+        </menu:category>
+        <menu:category id="c_port" z="z1MhI2/6D1CKWHgDQf09mE6g7GM=">
+            <menu:item id="i_port_new" messageCode="global_menu_new" url="/ports?form" z="/BJyKFyVBMHXU7BdqDkWL5vwV9Y="/>
+            <menu:item id="i_port_list" messageCode="global_menu_list" url="/ports?page=1&amp;size=${empty param.size ? 10 : param.size}" z="9q3jy8Hd1umRO+iZjYBEfJv45PQ="/>
+        </menu:category>
+        <menu:category id="c_band" z="AQtGIFFAfHYtB3sbUGtQkNHYCSE=">
+            <menu:item id="i_band_new" messageCode="global_menu_new" url="/bands?form" z="IQePhXteNP7QMSX9GsMXlnPbq+k="/>
+            <menu:item id="i_band_list" messageCode="global_menu_list" url="/bands?page=1&amp;size=${empty param.size ? 10 : param.size}" z="2hMT1vNy6HEgQvK+34jteQSWzXo="/>
+        </menu:category>
+        <menu:category id="c_outlet" z="XAewNV7PCgJY1RCekB0UJBh21cc=">
+            <menu:item id="i_outlet_new" messageCode="global_menu_new" url="/outlets?form" z="SwaibcxWtcLUdXZCcnJ3guto0sA="/>
+            <menu:item id="i_outlet_list" messageCode="global_menu_list" url="/outlets?page=1&amp;size=${empty param.size ? 10 : param.size}" z="UtCK4o4rHYnBsIL+WM2UsUkIjRo="/>
+        </menu:category>
+        <menu:category id="c_netmodule" z="BtIKieAwCoo5ZkGn3rpXP9MevWo=">
+            <menu:item id="i_netmodule_new" messageCode="global_menu_new" url="/netmodules?form" z="KfKcRbzzYzBVmZAHBxC5PCDtRwA="/>
+            <menu:item id="i_netmodule_list" messageCode="global_menu_list" url="/netmodules?page=1&amp;size=${empty param.size ? 10 : param.size}" z="j8oOCcTrfLnZCP/ie+YLeOeHkuk="/>
+        </menu:category>
+        <menu:category id="c_dispatcher" z="EFsCDrXCfGAzfelby9W2Aj0uTxQ=">
+            <menu:item id="i_dispatcher_new" messageCode="global_menu_new" url="/dispatchers?form" z="LzopdlKwmpNL6lOvpF8OQXduCCY="/>
+            <menu:item id="i_dispatcher_list" messageCode="global_menu_list" url="/dispatchers?page=1&amp;size=${empty param.size ? 10 : param.size}" z="nL3GNjp1KeWFtj2lhQbAlsyby3g="/>
+        </menu:category>
+        <menu:category id="c_room" z="e3e6qTdks0EVUaGbVSSNbM0HcXc=">
+            <menu:item id="i_room_new" messageCode="global_menu_new" url="/rooms?form" z="fvAkKg908k/4/1ftKfhIuAeNmjE="/>
+            <menu:item id="i_room_list" messageCode="global_menu_list" url="/rooms?page=1&amp;size=${empty param.size ? 10 : param.size}" z="M5XFOS8myAtDzhNTcTwqAph0QtQ="/>
+        </menu:category>
+        <menu:category id="c_sonde" z="fMQIKVbE+qOUgIHSPASj4cw4lVM=">
+            <menu:item id="i_sonde_new" messageCode="global_menu_new" url="/sondes?form" z="GWZx9vdVFGpmv7CrZciNnQySpI0="/>
+            <menu:item id="i_sonde_list" messageCode="global_menu_list" url="/sondes?page=1&amp;size=${empty param.size ? 10 : param.size}" z="wEBHchF7x/O5XL5ewRsxyARfbyI="/>
+        </menu:category>
+        <menu:category id="c_controller" z="nj8Dm3hojIyIEyPkwE1UMDIs+K8=">
+            <menu:item id="i_controller__uc_adminindex_id" messageCode="global_generic" url="/uc/admin/index" z="BHbX3r1ZN+RhTwLKW6r8G97gKzc="/>
+        </menu:category>
+    </menu:menu>
+</div>

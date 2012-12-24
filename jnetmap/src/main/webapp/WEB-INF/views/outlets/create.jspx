@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <form:create id="fc_org_sio_jnetmap_domain_Outlet" modelAttribute="outlet" path="/outlets" render="${empty dependencies}" z="C2zvq8BzY9H+JRrte0Op+oy0GWk=">
+        <field:input field="numOutlet" id="c_org_sio_jnetmap_domain_Outlet_numOutlet" max="30" min="2" required="true" z="iYERHS7cQF14bH+5hheY8E0hxvU="/>
+        <field:input field="portOutlet" id="c_org_sio_jnetmap_domain_Outlet_portOutlet" z="yHtGBaBXbqRL29rsH/2dSa5WV+Y="/>
+        <field:select field="roomOutlet" id="c_org_sio_jnetmap_domain_Outlet_roomOutlet" itemValue="id" items="${rooms}" path="/rooms" z="6cuJ4Uh4vZMGQxeflYlu+ofTyG4="/>
+        <field:select field="bandOutlet" id="c_org_sio_jnetmap_domain_Outlet_bandOutlet" itemValue="id" items="${bands}" path="/bands" z="Y3gI/KGMg4tHsx194a6FuJDgSxw="/>
+    </form:create>
+    <form:dependency dependencies="${dependencies}" id="d_org_sio_jnetmap_domain_Outlet" render="${not empty dependencies}" z="BN9WKxzpvcVq9Uhv3+UrE02a1DQ="/>
+</div>

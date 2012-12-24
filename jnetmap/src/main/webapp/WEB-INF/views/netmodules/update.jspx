@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <form:update id="fu_org_sio_jnetmap_domain_NetModule" modelAttribute="netModule" path="/netmodules" versionField="Version" z="dSFyQ+RTw6rj6g6LheKkFPgnBaM=">
+        <field:input field="numNetModule" id="c_org_sio_jnetmap_domain_NetModule_numNetModule" required="true" z="D7kAyVqDPGYcZKBQhG2Ds+pXSfk="/>
+        <field:select field="netSwitchModule" id="c_org_sio_jnetmap_domain_NetModule_netSwitchModule" itemValue="id" items="${netswitches}" path="/netswitches" z="Q7TPQpY/ra0PIsV54WXD8cX0rsU="/>
+    </form:update>
+</div>

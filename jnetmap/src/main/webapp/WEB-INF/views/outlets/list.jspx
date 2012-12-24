@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:list id="pl_org_sio_jnetmap_domain_Outlet" items="${outlets}" z="eHIpztqjBM60SyR5VEg3T8G2jIk=">
+        <table:table data="${outlets}" id="l_org_sio_jnetmap_domain_Outlet" path="/outlets" z="4vguJEiuXhraKI4YPVtz0oSGshk=">
+            <table:column id="c_org_sio_jnetmap_domain_Outlet_numOutlet" property="numOutlet" z="7vVTXQminfX+qpKFIS196Y1fnCs="/>
+            <table:column id="c_org_sio_jnetmap_domain_Outlet_portOutlet" property="portOutlet" z="uBXAl/cilemijM8Lami0AlKmgZ0="/>
+            <table:column id="c_org_sio_jnetmap_domain_Outlet_roomOutlet" property="roomOutlet" z="h21Di8lJ3LkUL3Xph0mj2r4EPpY="/>
+            <table:column id="c_org_sio_jnetmap_domain_Outlet_bandOutlet" property="bandOutlet" z="IYBb/UQcQ7rqtmnm9RDRc+TD+Tw="/>
+        </table:table>
+    </page:list>
+</div>
