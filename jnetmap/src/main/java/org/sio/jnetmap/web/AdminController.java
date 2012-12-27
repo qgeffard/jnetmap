@@ -169,6 +169,7 @@ public class AdminController {
 				outlets = Outlet.findOutletsOfBuilding(building.getId());
 				modelMap.addAttribute("buildingId", building.getId());
 				modelMap.addAttribute("bandId", bandId);
+				modelMap.addAttribute("outletId", outletId);
 				modelMap.addAttribute("netSwitchId", netSwitchId);
 			}else{
 				if(netSwitchId != 0){
@@ -272,9 +273,11 @@ public class AdminController {
 				if(dispatcherId == 0){
 					bands = Band.findBandsOfBuilding(buildId);
 					netSwitches = NetSwitch.findNetSwitchesOfBuilding(buildId);
+					netModules = NetModule.findNetModulesOfBuilding(buildId);
 				}else{
 					bands = Band.findBandsOfDispatcher(dispatcherId);
 					netSwitches = NetSwitch.findNetSwitchesOfDispatcher(dispatcherId);
+					netModules = NetModule.findNetModulesOfDispatcher(dispatcherId);
 				}
 				if(roomId != 0 && bandId == 0){
 					outlets = Outlet.findOutletsOfRoom(roomId);
@@ -285,12 +288,102 @@ public class AdminController {
 				}else{
 					outlets = Outlet.findOutletsOfBuilding(buildId);
 				}
-				netModules = NetModule.findNetModulesOfBuilding(buildId);
 				modelMap.addAttribute("buildingId", buildId);
 				modelMap.addAttribute("dispatcherId", dispatcherId);
 			}
 			modelMap.addAttribute("roomId", roomId);
 			modelMap.addAttribute("bandId", bandId);
+		}else if(selected.equals("outlet")){
+			/*
+			SELECT * FROM OUTLET o WHERE o.ID=1847
+			Résultat => Id band : 34 - Id room : 33
+			
+			SELECT * FROM ROOM r WHERE r.ID=33
+			Résultat => Room : cdti - Id building : 5
+			
+			SELECT * FROM BUILDING b WHERE b.ID=5
+			Résultat => Building : C
+			
+			SELECT * FROM BAND b WHERE b.ID=34
+			Résultat => Id dispatcher : 6
+			
+			SELECT * FROM DISPATCHER d WHERE d.ID=6
+			Résultat => Dispatcher : RGIF
+			
+			ERREUR
+			La prise se trouve dans le batiment C mais utilise le répartiteur RGIF qui est utilisé pour le batiment F (illogique)
+			*/
+			if(outletId != 0){
+				Building building = Building.findBuildingOfOutletWhitchRoom(outletId);
+				if(Band.findBandsOfBuilding(building.getId()).size() != 0){
+					building = Building.findBuildingOfOutletWhitchBand(outletId);
+					bands = Band.findBandsOfDispatcher(Dispatcher.findDispatcherOfBand(Band.findBandOfOutlet(outletId).getId()).getId());
+					netSwitches = NetSwitch.findNetSwitchesOfDispatcher(Dispatcher.findDispatcherOfBand(Band.findBandOfOutlet(outletId).getId()).getId());
+					netModules = NetModule.findNetModulesOfDispatcher(Dispatcher.findDispatcherOfBand(Band.findBandOfOutlet(outletId).getId()).getId());
+					if(Room.findRoomOfOutlet(outletId)==null){
+						outlets = Outlet.findOutletsOfBand(Band.findBandOfOutlet(outletId).getId());
+					}else{
+						outlets = Outlet.findOutletsOfRoomAndBand(Room.findRoomOfOutlet(outletId).getId(), Band.findBandOfOutlet(outletId).getId());
+					}
+					modelMap.addAttribute("dispatcherId", Dispatcher.findDispatcherOfBand(Band.findBandOfOutlet(outletId).getId()).getId());
+					modelMap.addAttribute("bandId", Band.findBandOfOutlet(outletId).getId());
+					if(NetSwitch.findNetSwitchesOfBand(Band.findBandOfOutlet(outletId).getId()).size() <= 1){
+						modelMap.addAttribute("netSwitchId", NetSwitch.findNetSwitchOfBand(Band.findBandOfOutlet(outletId).getId()).getId());
+					}else{
+						modelMap.addAttribute("netSwitchId", netSwitchId);
+					}
+				}else{
+					bands = Band.findBandsOfBuilding(building.getId());
+					netSwitches = NetSwitch.findNetSwitchesOfBuilding(building.getId());
+					outlets = Outlet.findOutletsOfRoom(Room.findRoomOfOutlet(outletId).getId());
+					if(netSwitchId != 0){
+						netModules = NetModule.findNetModulesOfNetSwitch(netSwitchId);
+					}else if(dispatcherId != 0){
+						netModules = NetModule.findNetModulesOfDispatcher(dispatcherId);
+					}else{
+						netModules = NetModule.findNetModulesOfBuilding(building.getId());
+					}
+				}
+				rooms = Room.findRoomsOfBuilding(building.getId());
+				dispatchers = Dispatcher.findDispatchersOfBuilding(building.getId());
+				modelMap.addAttribute("buildingId", building.getId());
+				modelMap.addAttribute("roomId", Room.findRoomOfOutlet(outletId).getId());
+				modelMap.addAttribute("outletId", outletId);
+			}else{
+				rooms = Room.findRoomsOfBuilding(buildId);
+				dispatchers = Dispatcher.findDispatchersOfBuilding(buildId);
+				if(netSwitchId != 0){
+					bands = Band.findBandsOfNetSwitch(netSwitchId);
+					netModules = NetModule.findNetModulesOfNetSwitch(netSwitchId);
+				}else if(dispatcherId != 0){
+					bands = Band.findBandsOfDispatcher(dispatcherId);
+					netModules = NetModule.findNetModulesOfDispatcher(dispatcherId);
+				}else{
+					bands = Band.findBandsOfBuilding(buildId);
+					netModules = NetModule.findNetModulesOfBuilding(buildId);
+				}
+				
+				if(dispatcherId != 0){
+					netSwitches = NetSwitch.findNetSwitchesOfDispatcher(dispatcherId);
+				}else{
+					netSwitches = NetSwitch.findNetSwitchesOfBuilding(buildId);
+				}
+
+				if(roomId != 0 && bandId == 0){
+					outlets = Outlet.findOutletsOfRoom(roomId);
+				}else if(roomId != 0 && bandId != 0){
+					outlets = Outlet.findOutletsOfRoomAndBand(roomId, bandId);
+				}else if(roomId == 0 && bandId != 0){
+					outlets = Outlet.findOutletsOfBand(bandId);
+				}else{
+					outlets = Outlet.findOutletsOfBuilding(buildId);
+				}
+				modelMap.addAttribute("buildingId", buildId);
+				modelMap.addAttribute("roomId", roomId);
+				modelMap.addAttribute("dispatcherId", dispatcherId);
+				modelMap.addAttribute("bandId", bandId);
+				modelMap.addAttribute("netSwitchId", netSwitchId);
+			}
 		}
 		
 		List<Dispatcher> dispatchersBis = Dispatcher.findAllDispatchersOrder();

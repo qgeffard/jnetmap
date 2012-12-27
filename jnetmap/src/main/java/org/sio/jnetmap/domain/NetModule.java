@@ -35,4 +35,11 @@ public class NetModule {
         return entityManager().createQuery("SELECT o FROM NetModule o WHERE o.netSwitchModule.id="+id, NetModule.class).getResultList();
     }
     
+    @SuppressWarnings("unchecked")
+	public static List<NetModule> findNetModulesOfDispatcher(Long id) {
+		return (List<NetModule>) entityManager().createNativeQuery(
+					"SELECT distinct m.* FROM Net_Module m, Net_Switch s, Dispatcher d WHERE m.net_Switch_Module=s.id and s.dispatcher_net_switch=d.id and d.id="
+							+ id, NetModule.class).getResultList();
+	}
+    
 }

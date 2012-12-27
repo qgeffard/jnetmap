@@ -28,7 +28,9 @@ public class Outlet {
 	
 	@SuppressWarnings("unchecked")
 	public static List<Outlet> findAllOutletsOrder() {
-        return entityManager().createNativeQuery("SELECT o.* FROM Outlet o, Room r WHERE o.id!=0 and o.room_outlet=r.id ORDER BY r.name_room, o.num_outlet", Outlet.class).getResultList();
+        List<Outlet> l = entityManager().createNativeQuery("SELECT o.*, r.name_room FROM Outlet o, Room r, Band b WHERE o.id!=0 and o.room_outlet=r.id and o.band_outlet=b.id and o.room_Outlet != 0 ORDER BY r.name_room, o.num_outlet", Outlet.class).getResultList();
+        l.addAll(entityManager().createNativeQuery("SELECT o.*, d.name_dispatcher FROM Outlet o, Room r, Band b, Dispatcher d WHERE o.id!=0 and o.room_outlet=r.id and o.band_outlet=b.id and b.dispatcher_band=d.id and o.room_Outlet=0 ORDER BY d.name_dispatcher, b.num_band, o.num_outlet", Outlet.class).getResultList());
+		return l;
     }
 	
 	@SuppressWarnings("unchecked")

@@ -47,5 +47,9 @@ public class Band {
 						"SELECT distinct ba.* FROM Band ba, Dispatcher d, Net_Switch s WHERE ba.dispatcher_band=d.id and s.dispatcher_net_switch=d.id and s.id="
 								+ id, Band.class).getResultList();
 	}
+	
+	public static Band findBandOfOutlet(Long id) {
+        return (Band) entityManager().createNativeQuery("SELECT b.* FROM Band b, Outlet o WHERE o.band_outlet=b.id and o.id="+id, Band.class).getSingleResult();
+    }
 
 }

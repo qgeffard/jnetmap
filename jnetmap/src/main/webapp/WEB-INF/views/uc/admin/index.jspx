@@ -165,34 +165,45 @@
 				onChange="document.getElementById('selected').value='outlet';document.getElementById('formadmin').submit()">
 				<option value="0">N/A</option>
 				<c:forEach items="${outlets}" var="outlet">
-					<c:if test="${idRoom != outlet.roomOutlet.id}">
-						<c:set var="idRoom" value="${outlet.roomOutlet.id}"></c:set>
-						<c:forEach items="${rooms}" var="room">
-							<c:if test="${room.id == idRoom}">
-								<c:set var="name" value="${room.nameRoom}"></c:set>
-							</c:if>
-						</c:forEach>
-						<c:if test="${idBand != outlet.bandOutlet.id and name == 'N/A'}">
+					<c:if test="${outlet.roomOutlet.id != 0 and outlet.bandOutlet.id != 0 }">
+						<c:if test="${idRoom != outlet.roomOutlet.id}">
+							<c:set var="idRoom" value="${outlet.roomOutlet.id}"></c:set>
+							<c:forEach items="${rooms}" var="room">
+								<c:if test="${room.id == idRoom}">
+									<c:set var="name" value="${room.nameRoom}"></c:set>
+								</c:if>
+							</c:forEach>
+							<optgroup label="${name}"></optgroup>
+						</c:if>
+						<c:if test="${outlet.id == outletId}">
+							<option value="${outlet.id}" selected="selected">${outlet.numOutlet}</option>
+						</c:if>
+						<c:if test="${outlet.id != outletId}">
+							<option value="${outlet.id}">${outlet.numOutlet}</option>
+						</c:if>
+					</c:if>
+					<c:if test="${outlet.roomOutlet.id == 0 and outlet.bandOutlet.id != 0 }">
+						<c:if test="${idBand != outlet.bandOutlet.id}">
 							<c:set var="idBand" value="${outlet.bandOutlet.id}"></c:set>
 							<c:forEach items="${bands}" var="band">
 								<c:if test="${band.id == idBand}">
-									<c:set var="name" value="${band.numBand}"></c:set>
+									<c:set var="name" value="${band.dispatcherBand.nameDispatcher} / ${band.numBand}"></c:set>
 								</c:if>
 							</c:forEach>
+							<optgroup label="${name}"></optgroup>
 						</c:if>
-						<optgroup label="${name}"></optgroup>
-					</c:if>
-					<c:if test="${outlet.id == outletId}">
-						<option value="${outlet.id}" selected="selected">${outlet.numOutlet}</option>
-					</c:if>
-					<c:if test="${outlet.id != outletId}">
-						<option value="${outlet.id}">${outlet.numOutlet}</option>
+						<c:if test="${outlet.id == outletId}">
+							<option value="${outlet.id}" selected="selected">${outlet.numOutlet}</option>
+						</c:if>
+						<c:if test="${outlet.id != outletId}">
+							<option value="${outlet.id}">${outlet.numOutlet}</option>
+						</c:if>
 					</c:if>
 				</c:forEach>
 			</select>
 		</util:panel>
 		
-		<c:set var="idSwitch" value="0"></c:set>
+		<c:set var="idSwitch" value="-1"></c:set>
 		<util:panel title="Modules (${netModulesCount})" id="modules">
 			<select id="module" name="module"
 				onChange="document.getElementById('selected').value='module';document.getElementById('formadmin').submit()">

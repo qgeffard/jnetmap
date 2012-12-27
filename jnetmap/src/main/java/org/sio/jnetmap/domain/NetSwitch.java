@@ -42,5 +42,16 @@ public class NetSwitch {
 				"SELECT o FROM NetSwitch o WHERE o.dispatcherNetSwitch=" + id
 						+ " or o.id=0", NetSwitch.class).getResultList();
 	}
+	
+	public static NetSwitch findNetSwitchOfBand(Long id) {
+		return (NetSwitch) entityManager().createNativeQuery(
+				"SELECT distinct s.* FROM Net_Switch s, Band b, Dispatcher d WHERE s.dispatcher_net_switch=d.id and b.dispatcher_band=d.id and b.id=" + id, NetSwitch.class).getSingleResult();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static List<NetSwitch> findNetSwitchesOfBand(Long id) {
+		return entityManager().createNativeQuery(
+				"SELECT s.* FROM Net_Switch s, Band b, Dispatcher d WHERE s.dispatcher_net_switch=d.id and b.dispatcher_band=d.id and b.id=" + id, NetSwitch.class).getResultList();
+	}
 
 }

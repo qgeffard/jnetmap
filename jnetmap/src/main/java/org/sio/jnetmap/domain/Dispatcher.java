@@ -37,6 +37,13 @@ public class Dispatcher {
 	}
     
     @SuppressWarnings("unchecked")
+	public static List<Dispatcher> findDispatchersOfBand(Long id) {
+		return entityManager().createNativeQuery(
+				"SELECT d.* FROM Dispatcher d, Band b WHERE b.dispatcher_band=d.id and b.id="
+						+ id, Dispatcher.class).getResultList();
+	}
+    
+    @SuppressWarnings("unchecked")
 	public static List<Dispatcher> findDispatchersOfNetSwitch(Long id) {
 		return entityManager().createNativeQuery(
 				"SELECT DISTINCT d.* FROM Dispatcher d, Net_Switch s WHERE d.id=0 or (s.dispatcher_net_switch=d.id and s.id="

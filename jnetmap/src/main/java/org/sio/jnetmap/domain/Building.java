@@ -38,4 +38,16 @@ public class Building {
 				"SELECT b.* FROM Building b, Dispatcher d, Net_Switch s WHERE d.building_dispatcher=b.id and s.dispatcher_net_switch=d.id and s.id="
 						+ id, Building.class).getSingleResult();
 	}
+	
+	public static Building findBuildingOfOutletWhitchBand(Long id) {
+		return (Building) entityManager().createNativeQuery(
+				"SELECT b.* FROM Building b, Dispatcher d, Outlet o, Band ba WHERE b.id=d.building_dispatcher and o.band_outlet=ba.id and ba.dispatcher_band=d.id and o.id="
+						+ id, Building.class).getSingleResult();
+	}
+	
+	public static Building findBuildingOfOutletWhitchRoom(Long id) {
+		return (Building) entityManager().createNativeQuery(
+				"SELECT b.* FROM Outlet o, Room r, Building b WHERE o.room_outlet=r.id and r.building_room=b.id and o.id="
+						+ id, Building.class).getSingleResult();
+	}
 }

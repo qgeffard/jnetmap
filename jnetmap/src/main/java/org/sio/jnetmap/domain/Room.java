@@ -29,4 +29,8 @@ public class Room {
 	public static List<Room> findAllRoomsOrder() {
         return entityManager().createNativeQuery("SELECT r.* FROM Building b, Room r WHERE r.building_room=b.id ORDER BY b.name_building, r.name_room", Room.class).getResultList();
     }
+    
+	public static Room findRoomOfOutlet(Long id) {
+        return (Room) entityManager().createNativeQuery("SELECT r.* FROM Room r, Outlet o WHERE o.room_outlet=r.id and o.id="+id, Room.class).getSingleResult();
+    }
 }
