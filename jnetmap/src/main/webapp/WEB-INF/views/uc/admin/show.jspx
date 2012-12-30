@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" version="2.0">
+
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+	
+	<form action="index" method="post" id="formadmin">
+		<c:if test="${type == 'building'}">
+			<util:panel title="Show building" id="building">
+				<label>Name building :</label> ${building.nameBuilding}
+				<input type="hidden" id="building" name="building" value="${building.id}"/>
+				<span style="position:absolute;right:250px;">
+					<!-- Mettre les liens pour lister, ajouter, MAJ, supprimer -->
+					<img src="../../images/list.png" alt="list"/>
+					<img src="../../images/add.png" alt="add"/>
+					<img style="cursor: pointer"
+						onClick="document.getElementById('type').value='update';document.getElementById('selected').value='building';document.getElementById('formadmin').submit()"
+						src="../../images/update.png" alt="update" title="Update"/>
+					<img src="../../images/delete.png" alt="delete"/>
+				</span>
+				<br/><br/><a href="index"><button type="button">Return to Index</button></a>
+			</util:panel>
+		</c:if>
+		
+		<c:if test="${type == 'room'}">
+			<util:panel title="Show room" id="room">
+				<label>Name building :</label> ${room.buildingRoom.nameBuilding}<br/>
+				<label>Name room :</label> ${room.nameRoom}
+				<input type="hidden" id="building" name="building" value="${room.buildingRoom.id}"/>
+				<input type="hidden" id="room" name="room" value="${room.id}"/>
+				<span style="position:absolute;right:250px;">
+					<!-- Mettre les liens pour lister, ajouter, MAJ, supprimer -->
+					<img src="../../images/list.png" alt="list"/>
+					<img src="../../images/add.png" alt="add"/>
+					<img style="cursor: pointer"
+						onClick="document.getElementById('type').value='update';document.getElementById('selected').value='room';document.getElementById('formadmin').submit()"
+						src="../../images/update.png" alt="update" title="Update"/>
+					<img src="../../images/delete.png" alt="delete"/>
+				</span>
+				<br/><br/><a href="index"><button type="button">Return to Index</button></a>
+			</util:panel>
+		</c:if>
+		
+		<c:if test="${type == 'dispatcher'}">
+			<util:panel title="Show dispatcher" id="dispatcher">
+				<label>Name building :</label> ${dispatcher.buildingDispatcher.nameBuilding}<br/>
+				<label>Name dispatcher :</label> ${dispatcher.nameDispatcher}
+				<input type="hidden" id="building" name="building" value="${dispatcher.buildingDispatcher.id}"/>
+				<input type="hidden" id="dispatcher" name="dispatcher" value="${dispatcher.id}"/>
+				<span style="position:absolute;right:250px;">
+					<!-- Mettre les liens pour lister, ajouter, MAJ, supprimer -->
+					<img src="../../images/list.png" alt="list"/>
+					<img src="../../images/add.png" alt="add"/>
+					<img style="cursor: pointer"
+						onClick="document.getElementById('type').value='update';document.getElementById('selected').value='dispatcher';document.getElementById('formadmin').submit()"
+						src="../../images/update.png" alt="update" title="Update"/>
+					<img src="../../images/delete.png" alt="delete"/>
+				</span>
+				<br/><br/><a href="index"><button type="button">Return to Index</button></a>
+			</util:panel>
+		</c:if>
+		
+		<c:if test="${type == 'band'}">
+			<util:panel title="Show band" id="band">
+				<label>Name building :</label> ${band.dispatcherBand.buildingDispatcher.nameBuilding}<br/>
+				<label>Name dispatcher :</label> ${band.dispatcherBand.nameDispatcher}<br/>
+				<label>Number band :</label> ${band.numBand}
+				<input type="hidden" id="building" name="building" value="${band.dispatcherBand.buildingDispatcher.id}"/>
+				<input type="hidden" id="dispatcher" name="dispatcher" value="${band.dispatcherBand.id}"/>
+				<input type="hidden" id="band" name="band" value="${band.id}"/>
+				<span style="position:absolute;right:250px;">
+					<!-- Mettre les liens pour lister, ajouter, MAJ, supprimer -->
+					<img src="../../images/list.png" alt="list"/>
+					<img src="../../images/add.png" alt="add"/>
+					<img style="cursor: pointer"
+						onClick="document.getElementById('type').value='update';document.getElementById('selected').value='band';document.getElementById('formadmin').submit()"
+						src="../../images/update.png" alt="update" title="Update"/>
+					<img src="../../images/delete.png" alt="delete"/>
+				</span>
+				<br/><br/><a href="index"><button type="button">Return to Index</button></a>
+			</util:panel>
+		</c:if>
+		
+		<c:if test="${type == 'switch'}">
+			<util:panel title="Show switch" id="switch">
+				<label>Name building :</label> ${switch.dispatcherNetSwitch.buildingDispatcher.nameBuilding}<br/>
+				<label>Name dispatcher :</label> ${switch.dispatcherNetSwitch.nameDispatcher}<br/>
+				<label>IP address switch :</label> ${switch.ipNetSwitch}<br/>
+				<label>Name switch :</label> ${switch.nameNetSwitch}
+				<input type="hidden" id="building" name="building" value="${switch.dispatcherNetSwitch.buildingDispatcher.id}"/>
+				<input type="hidden" id="dispatcher" name="dispatcher" value="${switch.dispatcherNetSwitch.id}"/>
+				<input type="hidden" id="netSwitch" name="netSwitch" value="${switch.id}"/>
+				<span style="position:absolute;right:250px;">
+					<!-- Mettre les liens pour lister, ajouter, MAJ, supprimer -->
+					<img src="../../images/list.png" alt="list"/>
+					<img src="../../images/add.png" alt="add"/>
+					<img style="cursor: pointer"
+						onClick="document.getElementById('type').value='update';document.getElementById('selected').value='switch';document.getElementById('formadmin').submit()"
+						src="../../images/update.png" alt="update" title="Update"/>
+					<img src="../../images/delete.png" alt="delete"/>
+				</span>
+				<br/><br/><a href="index"><button type="button">Return to Index</button></a>
+			</util:panel>
+		</c:if>
+		
+		<c:if test="${type == 'outlet'}">
+			<util:panel title="Show outlet" id="outlet">
+				<label>Name building :</label> ${outlet.roomOutlet.buildingRoom.nameBuilding}<br/>
+				<label>Name room :</label> ${outlet.roomOutlet.nameRoom}<br/>
+				<label>Name dispatcher :</label> ${outlet.bandOutlet.dispatcherBand.nameDispatcher}<br/>
+				<label>Number band :</label> ${outlet.bandOutlet.numBand}<br/>
+				<label>Number outlet :</label> ${outlet.numOutlet}
+				<input type="hidden" id="building" name="building" value="${outlet.roomOutlet.buildingRoom.id}"/>
+				<input type="hidden" id="room" name="room" value="${outlet.roomOutlet.id}"/>
+				<input type="hidden" id="dispatcher" name="dispatcher" value="${outlet.bandOutlet.dispatcherBand.id}"/>
+				<input type="hidden" id="band" name="band" value="${outlet.bandOutlet.id}"/>
+				<input type="hidden" id="outlet" name="outlet" value="${outlet.id}"/>
+				<span style="position:absolute;right:250px;">
+					<!-- Mettre les liens pour lister, ajouter, MAJ, supprimer -->
+					<img src="../../images/list.png" alt="list"/>
+					<img src="../../images/add.png" alt="add"/>
+					<img style="cursor: pointer"
+						onClick="document.getElementById('type').value='update';document.getElementById('selected').value='outlet';document.getElementById('formadmin').submit()"
+						src="../../images/update.png" alt="update" title="Update"/>
+					<img src="../../images/delete.png" alt="delete"/>
+				</span>
+				<br/><br/><a href="index"><button type="button">Return to Index</button></a>
+			</util:panel>
+		</c:if>
+		
+		<c:if test="${type == 'module'}">
+			<util:panel title="Show module" id="module">
+				<label>Name building :</label> ${module.netSwitchModule.dispatcherNetSwitch.buildingDispatcher.nameBuilding}<br/>
+				<label>Name dispatcher :</label> ${module.netSwitchModule.dispatcherNetSwitch.nameDispatcher}<br/>
+				<label>IP address switch :</label> ${module.netSwitchModule.ipNetSwitch}<br/>
+				<label>Name switch :</label> ${module.netSwitchModule.nameNetSwitch}<br/>
+				<label>Number module :</label> ${module.numNetModule}
+				<input type="hidden" id="building" name="building" value="${module.netSwitchModule.dispatcherNetSwitch.buildingDispatcher.id}"/>
+				<input type="hidden" id="dispatcher" name="dispatcher" value="${module.netSwitchModule.dispatcherNetSwitch.id}"/>
+				<input type="hidden" id="netSwitch" name="netSwitch" value="${module.netSwitchModule.id}"/>
+				<input type="hidden" id="netModule" name="netModule" value="${module.id}"/>
+				<span style="position:absolute;right:250px;">
+					<!-- Mettre les liens pour lister, ajouter, MAJ, supprimer -->
+					<img src="../../images/list.png" alt="list"/>
+					<img src="../../images/add.png" alt="add"/>
+					<img style="cursor: pointer"
+						onClick="document.getElementById('type').value='update';document.getElementById('selected').value='module';document.getElementById('formadmin').submit()"
+						src="../../images/update.png" alt="update" title="Update"/>
+					<img src="../../images/delete.png" alt="delete"/>
+				</span>
+				<br/><br/><a href="index"><button type="button">Return to Index</button></a>
+			</util:panel>
+		</c:if>
+		<input id="selected" name="selected" type="hidden" value="" />
+		<input id="type" name="type" type="hidden" value="" />
+	</form>
+</div>

@@ -25,7 +25,7 @@ privileged aspect NetModule_Roo_Jpa_ActiveRecord {
     }
     
     public static List<NetModule> NetModule.findAllNetModules() {
-        return entityManager().createQuery("SELECT o FROM NetModule o WHERE o.id!=0", NetModule.class).getResultList();
+        return entityManager().createQuery("SELECT o FROM NetModule o", NetModule.class).getResultList();
     }
     
     public static NetModule NetModule.findNetModule(Long id) {

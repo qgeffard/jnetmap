@@ -25,7 +25,7 @@ privileged aspect Outlet_Roo_Jpa_ActiveRecord {
     }
     
     public static List<Outlet> Outlet.findAllOutlets() {
-        return entityManager().createQuery("SELECT o FROM Outlet o WHERE o.id!=0", Outlet.class).getResultList();
+        return entityManager().createQuery("SELECT o FROM Outlet o", Outlet.class).getResultList();
     }
     
     public static Outlet Outlet.findOutlet(Long id) {

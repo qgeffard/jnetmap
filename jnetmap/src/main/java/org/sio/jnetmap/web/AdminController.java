@@ -28,7 +28,7 @@ public class AdminController {
 			HttpServletRequest request, HttpServletResponse response) {
 	}
 
-	@RequestMapping
+	@RequestMapping(value="index")
 	public String index(ModelMap modelMap, WebRequest wr) {
 		List<Building> buildings = Building.findAllBuildingsOrder();
 		List<Room> rooms = Room.findAllRoomsOrder();
@@ -47,8 +47,12 @@ public class AdminController {
 		String strNetModuleId = wr.getParameter("module");
 		
 		String selected = wr.getParameter("selected");
+		String type = wr.getParameter("type");
 		if(selected == null){
 			selected = "nothing";
+		}
+		if(type == null){
+			type = "nothing";
 		}
 
 		Long buildId = 0L;
@@ -59,15 +63,65 @@ public class AdminController {
 		Long outletId = 0L;
 		Long netModuleId = 0L;
 
-		if(strBuildId != null && strRoomId != null && strDispatcherId != null
-				&& strBandId != null && strNetSwitchId != null && strOutletId != null  && strNetModuleId != null) {
+		if(strBuildId != null) {
 			buildId = Long.parseLong(strBuildId);
+		}
+		if(strRoomId != null){
 			roomId = Long.parseLong(strRoomId);
+		}
+		if(strDispatcherId != null){
 			dispatcherId = Long.parseLong(strDispatcherId);
+		}
+		if(strBandId != null){
 			bandId = Long.parseLong(strBandId);
+		}
+		if(strNetSwitchId != null){
 			netSwitchId = Long.parseLong(strNetSwitchId);
+		}
+		if(strOutletId != null){
 			outletId = Long.parseLong(strOutletId);
+		}
+		if(strNetModuleId != null){
 			netModuleId = Long.parseLong(strNetModuleId);
+		}
+		
+		modelMap.addAttribute("buildingId", 0);
+		if(type.equals("show")){
+			if(selected.equals("building")){
+				modelMap.addAllAttributes(show(selected, buildId));
+			}else if(selected.equals("room")){
+				modelMap.addAllAttributes(show(selected, roomId));
+			}else if(selected.equals("dispatcher")){
+				modelMap.addAllAttributes(show(selected, dispatcherId));
+			}else if(selected.equals("band")){
+				modelMap.addAllAttributes(show(selected, bandId));
+			}else if(selected.equals("switch")){
+				modelMap.addAllAttributes(show(selected, netSwitchId));
+			}else if(selected.equals("outlet")){
+				modelMap.addAllAttributes(show(selected, outletId));
+			}else if(selected.equals("module")){
+				modelMap.addAllAttributes(show(selected, netModuleId));
+			}
+			modelMap.addAttribute("type", selected);
+			return "uc/admin/show";
+		}else if(type.equals("update")){
+			if(selected.equals("building")){
+				modelMap.addAllAttributes(update(selected, buildId));
+			}else if(selected.equals("room")){
+				modelMap.addAllAttributes(update(selected, roomId));
+			}else if(selected.equals("dispatcher")){
+				modelMap.addAllAttributes(update(selected, dispatcherId));
+			}else if(selected.equals("band")){
+				modelMap.addAllAttributes(update(selected, bandId));
+			}else if(selected.equals("switch")){
+				modelMap.addAllAttributes(update(selected, netSwitchId));
+			}else if(selected.equals("outlet")){
+				modelMap.addAllAttributes(update(selected, outletId));
+			}else if(selected.equals("module")){
+				modelMap.addAllAttributes(update(selected, netModuleId));
+			}
+			modelMap.addAttribute("type", selected);
+			return "uc/admin/update";
 		}
 		
 		if(selected.equals("building")) {
@@ -267,6 +321,7 @@ public class AdminController {
 				modelMap.addAttribute("dispatcherId", dispatchers.get(1).getId());
 				modelMap.addAttribute("buildingId", building.getId());
 				modelMap.addAttribute("netSwitchId", netSwitchId);
+				modelMap.addAttribute("outletId", outletId);
 			}else{
 				rooms = Room.findRoomsOfBuilding(buildId);
 				dispatchers = Dispatcher.findDispatchersOfBuilding(buildId);
@@ -319,7 +374,11 @@ public class AdminController {
 					building = Building.findBuildingOfOutletWhitchBand(outletId);
 					bands = Band.findBandsOfDispatcher(Dispatcher.findDispatcherOfBand(Band.findBandOfOutlet(outletId).getId()).getId());
 					netSwitches = NetSwitch.findNetSwitchesOfDispatcher(Dispatcher.findDispatcherOfBand(Band.findBandOfOutlet(outletId).getId()).getId());
-					netModules = NetModule.findNetModulesOfDispatcher(Dispatcher.findDispatcherOfBand(Band.findBandOfOutlet(outletId).getId()).getId());
+					if(netSwitchId != 0){
+						netModules = NetModule.findNetModulesOfNetSwitch(netSwitchId);
+					}else{
+						netModules = NetModule.findNetModulesOfDispatcher(Dispatcher.findDispatcherOfBand(Band.findBandOfOutlet(outletId).getId()).getId());
+					}
 					if(Room.findRoomOfOutlet(outletId)==null){
 						outlets = Outlet.findOutletsOfBand(Band.findBandOfOutlet(outletId).getId());
 					}else{
@@ -405,5 +464,173 @@ public class AdminController {
 		modelMap.addAttribute("netModulesCount", netModules.size());
 
 		return "uc/admin/index";
+	}
+	
+	public ModelMap show(String selected, Long id) {
+		ModelMap modelMap = new ModelMap();
+		if(selected.equals("building")){
+			Building building = Building.findBuilding(id);
+			modelMap.addAttribute("building", building);
+		}else if(selected.equals("room")){
+			Room room = Room.findRoom(id);
+			modelMap.addAttribute("room", room);
+		}else if(selected.equals("dispatcher")){
+			Dispatcher dispatcher = Dispatcher.findDispatcher(id);
+			modelMap.addAttribute("dispatcher", dispatcher);
+		}else if(selected.equals("band")){
+			Band band = Band.findBand(id);
+			modelMap.addAttribute("band", band);
+		}else if(selected.equals("switch")){
+			NetSwitch netSwitch = NetSwitch.findNetSwitch(id);
+			modelMap.addAttribute("switch", netSwitch);
+		}else if(selected.equals("outlet")){
+			Outlet outlet = Outlet.findOutlet(id);
+			modelMap.addAttribute("outlet", outlet);
+		}else if(selected.equals("module")){
+			NetModule netModule = NetModule.findNetModule(id);
+			modelMap.addAttribute("netModule", netModule);
+		}
+		return modelMap;
+	}
+	
+	public ModelMap update(String selected, Long id) {
+		ModelMap modelMap = new ModelMap();
+		List<Building> buildings = Building.findAllBuildingsOrder();
+		List<Room> rooms = Room.findAllRoomsOrder();
+		List<Dispatcher> dispatchers = Dispatcher.findAllDispatchersOrder();
+		modelMap.addAttribute("buildings", buildings);
+		modelMap.addAttribute("rooms", rooms);
+		modelMap.addAttribute("dispatchers", dispatchers);
+		
+		if(selected.equals("building")){
+			Building building = Building.findBuilding(id);
+			modelMap.addAttribute("building", building);
+		}else if(selected.equals("room")){
+			Room room = Room.findRoom(id);
+			modelMap.addAttribute("room", room);
+			modelMap.addAttribute("buildingId", room.getBuildingRoom().getId());
+		}else if(selected.equals("dispatcher")){
+			Dispatcher dispatcher = Dispatcher.findDispatcher(id);
+			modelMap.addAttribute("dispatcher", dispatcher);
+			modelMap.addAttribute("buildingId", dispatcher.getBuildingDispatcher().getId());
+		}else if(selected.equals("band")){
+			Band band = Band.findBand(id);
+			modelMap.addAttribute("band", band);
+			modelMap.addAttribute("buildingId", band.getDispatcherBand().getBuildingDispatcher().getId());
+			modelMap.addAttribute("dispatcherId", band.getDispatcherBand().getId());
+		}else if(selected.equals("switch")){
+			NetSwitch netSwitch = NetSwitch.findNetSwitch(id);
+			modelMap.addAttribute("switch", netSwitch);
+			modelMap.addAttribute("buildingId", netSwitch.getDispatcherNetSwitch().getBuildingDispatcher().getId());
+			modelMap.addAttribute("dispatcherId", netSwitch.getDispatcherNetSwitch().getId());
+		}else if(selected.equals("outlet")){
+			Outlet outlet = Outlet.findOutlet(id);
+			modelMap.addAttribute("outlet", outlet);
+			modelMap.addAttribute("buildingId", outlet.getRoomOutlet().getBuildingRoom().getId());
+			modelMap.addAttribute("roomId", outlet.getRoomOutlet().getId());
+			modelMap.addAttribute("dispatcherId", outlet.getBandOutlet().getDispatcherBand().getId());
+			modelMap.addAttribute("bandId", outlet.getBandOutlet().getId());
+		}else if(selected.equals("module")){
+			NetModule netModule = NetModule.findNetModule(id);
+			modelMap.addAttribute("netModule", netModule);
+		}
+		return modelMap;
+	}
+	
+	@RequestMapping(value="update")
+	public String doUpdate(ModelMap modelMap, WebRequest wr) {
+		String selected = wr.getParameter("selected");
+		List<Building> buildings = Building.findAllBuildingsOrder();
+		List<Room> rooms = Room.findAllRoomsOrder();
+		List<Dispatcher> dispatchers = Dispatcher.findAllDispatchersOrder();
+		Building building = new Building();
+		Dispatcher dispatcher = new Dispatcher();
+		Room room = new Room();
+		Band band = new Band();
+		String strBuildId = wr.getParameter("building");
+		String strDispatcherId = wr.getParameter("dispatcher");
+		if(selected.equals("building")){
+			strBuildId = wr.getParameter("idBuilding");
+			String name = wr.getParameter("nameBuilding");
+			building = Building.findBuilding(Long.parseLong(strBuildId));
+			building.setNameBuilding(name);
+			building.persist();
+		}else if(selected.equals("room")){
+			String strRoomId = wr.getParameter("idRoom");
+			String nameRoom = wr.getParameter("nameRoom");
+			building = Building.findBuilding(Long.parseLong(strBuildId));
+			room = Room.findRoom(Long.parseLong(strRoomId));
+			room.setBuildingRoom(building);
+			room.setNameRoom(nameRoom);
+			room.persist();
+		}else if(selected.equals("dispatcher")){
+			strDispatcherId = wr.getParameter("idDispatcher");
+			String nameDispatcher = wr.getParameter("nameDispatcher");
+			building = Building.findBuilding(Long.parseLong(strBuildId));
+			dispatcher = Dispatcher.findDispatcher(Long.parseLong(strDispatcherId));
+			dispatcher.setBuildingDispatcher(building);
+			dispatcher.setNameDispatcher(nameDispatcher);
+			dispatcher.persist();
+		}else if(selected.equals("band")){
+			String strBandId = wr.getParameter("idBand");
+			String numBand = wr.getParameter("numBand");
+			building = Building.findBuilding(Long.parseLong(strBuildId));
+			dispatcher = Dispatcher.findDispatcher(Long.parseLong(strDispatcherId));
+			band = Band.findBand(Long.parseLong(strBandId));
+			dispatcher.setBuildingDispatcher(building);
+			band.setDispatcherBand(dispatcher);
+			band.setNumBand(numBand);
+			band.persist();	
+		}else if(selected.equals("switch")){
+			String strSwitchId = wr.getParameter("idSwitch");
+			String ipSwitch = wr.getParameter("ipSwitch");
+			String nameSwitch = wr.getParameter("nameSwitch");
+			building = Building.findBuilding(Long.parseLong(strBuildId));
+			dispatcher = Dispatcher.findDispatcher(Long.parseLong(strDispatcherId));
+			NetSwitch netSwitch = NetSwitch.findNetSwitch(Long.parseLong(strSwitchId));
+			dispatcher.setBuildingDispatcher(building);
+			netSwitch.setDispatcherNetSwitch(dispatcher);
+			netSwitch.setIpNetSwitch(ipSwitch);
+			netSwitch.setNameNetSwitch(nameSwitch);
+			netSwitch.persist();
+			modelMap.addAttribute("switch", netSwitch);
+		}else if(selected.equals("outlet")){
+			String strRoomId = wr.getParameter("room");
+			String strBandId = wr.getParameter("idBand");
+			String strOutletId = wr.getParameter("idOutlet");
+			String numBand = wr.getParameter("numBand");
+			String numOutlet = wr.getParameter("numOutlet");
+			building = Building.findBuilding(Long.parseLong(strBuildId));
+			room = Room.findRoom(Long.parseLong(strRoomId));
+			dispatcher = Dispatcher.findDispatcher(Long.parseLong(strDispatcherId));
+			band = Band.findBand(Long.parseLong(strBandId));
+			Outlet outlet = Outlet.findOutlet(Long.parseLong(strOutletId));
+			room.setBuildingRoom(building);
+			dispatcher.setBuildingDispatcher(building);
+			band.setDispatcherBand(dispatcher);
+			band.setNumBand(numBand);
+			outlet.setBandOutlet(band);
+			outlet.setRoomOutlet(room);
+			outlet.setNumOutlet(numOutlet);
+			outlet.persist();
+			modelMap.addAttribute("outlet", outlet);
+		}
+		
+		modelMap.addAttribute("building", building);
+		modelMap.addAttribute("buildingId", building.getId());
+		modelMap.addAttribute("buildings", buildings);
+		modelMap.addAttribute("dispatcher", dispatcher);
+		modelMap.addAttribute("dispatcherId", dispatcher.getId());
+		modelMap.addAttribute("dispatchers", dispatchers);
+		modelMap.addAttribute("room", room);
+		modelMap.addAttribute("roomId", room.getId());
+		modelMap.addAttribute("rooms", rooms);
+		modelMap.addAttribute("band", band);
+		modelMap.addAttribute("bandId", band.getId());
+
+		modelMap.addAttribute("type", selected);
+		String update = "Updated";
+		modelMap.addAttribute("update", update);
+		return "uc/admin/update";
 	}
 }

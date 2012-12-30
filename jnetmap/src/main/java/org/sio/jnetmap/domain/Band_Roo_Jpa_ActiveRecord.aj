@@ -25,7 +25,7 @@ privileged aspect Band_Roo_Jpa_ActiveRecord {
     }
     
     public static List<Band> Band.findAllBands() {
-        return entityManager().createQuery("SELECT o FROM Band o WHERE o.id!=0", Band.class).getResultList();
+        return entityManager().createQuery("SELECT o FROM Band o", Band.class).getResultList();
     }
     
     public static Band Band.findBand(Long id) {

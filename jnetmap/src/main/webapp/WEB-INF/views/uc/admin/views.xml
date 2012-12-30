@@ -4,4 +4,10 @@
     <definition extends="public" name="uc/admin/index">
         <put-attribute name="body" value="/WEB-INF/views/uc/admin/index.jspx"/>
     </definition>
+    <definition extends="public" name="uc/admin/show">
+        <put-attribute name="body" value="/WEB-INF/views/uc/admin/show.jspx"/>
+    </definition>
+    <definition extends="public" name="uc/admin/update">
+        <put-attribute name="body" value="/WEB-INF/views/uc/admin/update.jspx"/>
+    </definition>
 </tiles-definitions>
