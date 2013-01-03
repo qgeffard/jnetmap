@@ -7,18 +7,17 @@
 	<jsp:directive.page contentType="text/html;charset=UTF-8" />
 	<jsp:output omit-xml-declaration="yes" />
 	
-	<form action="update" method="post" id="formadmin">
+	<form action="add" method="post" id="formadmin">
 		<c:if test="${type == 'building'}">
-			<util:panel title="Update building" id="building">
-				<label for="nameBuilding">Name building :</label> <input type="text" id="nameBuilding" name="nameBuilding" value="${building.nameBuilding}"/>
+			<util:panel title="Add building" id="building">
+				<label for="nameBuilding">Name building :</label> <input type="text" id="nameBuilding" name="nameBuilding" value=""/>
 				<br/><br/>
-				<input type="hidden" id="idBuilding" name="idBuilding" value="${building.id}"/>
-				<input type="submit" value="Update"/><span style="color:red"> ${update}</span>
+				<input type="submit" value="Add"/><span style="color:red"> ${add}</span>
 			</util:panel>
 		</c:if>
 		
 		<c:if test="${type == 'room'}">
-			<util:panel title="Update room" id="room">
+			<util:panel title="Add room" id="room">
 				<label for="building">Name building :</label> 
 				<select id="building" name="building">
 					<c:forEach items="${buildings}" var="build">
@@ -42,15 +41,14 @@
 						</c:if>
 					</c:forEach>
 				</select><br/><br/>
-				<label for="nameRoom">Name room :</label> <input type="text" id="nameRoom" name="nameRoom" value="${room.nameRoom}"/>
+				<label for="nameRoom">Name room :</label> <input type="text" id="nameRoom" name="nameRoom" value=""/>
 				<br/><br/>
-				<input type="hidden" id="idRoom" name="idRoom" value="${room.id}"/>
-				<input type="submit" value="Update"/><span style="color:red"> ${update}</span>
+				<input type="submit" value="Add"/><span style="color:red"> ${add}</span>
 			</util:panel>
 		</c:if>
 		
 		<c:if test="${type == 'dispatcher'}">
-			<util:panel title="Update dispatcher" id="dispatcher">
+			<util:panel title="Add dispatcher" id="dispatcher">
 				<label for="building">Name building :</label> 
 				<select id="building" name="building">
 					<c:forEach items="${buildings}" var="build">
@@ -74,15 +72,14 @@
 						</c:if>
 					</c:forEach>
 				</select><br/><br/>
-				<label for="nameDispatcher">Name dispatcher :</label> <input type="text" id="nameDispatcher" name="nameDispatcher" value="${dispatcher.nameDispatcher}"/>
+				<label for="nameDispatcher">Name dispatcher :</label> <input type="text" id="nameDispatcher" name="nameDispatcher" value=""/>
 				<br/><br/>
-				<input type="hidden" id="idDispatcher" name="idDispatcher" value="${dispatcher.id}"/>
-				<input type="submit" value="Update"/><span style="color:red"> ${update}</span>
+				<input type="submit" value="Add"/><span style="color:red"> ${add}</span>
 			</util:panel>
 		</c:if>
 		
 		<c:if test="${type == 'band'}">
-			<util:panel title="Update band" id="band">
+			<util:panel title="Add band" id="band">
 				<label for="dispatcher">Name dispatcher :</label> 
 				<select id="dispatcher" name="dispatcher">
 					<c:forEach items="${dispatchers}" var="dispatcher">
@@ -116,15 +113,14 @@
 						</c:if>
 					</c:forEach>
 				</select><br/><br/>
-				<label for="numBand">Number band :</label> <input type="text" id="numBand" name="numBand" value="${band.numBand}"/>
+				<label for="numBand">Number band :</label> <input type="text" id="numBand" name="numBand" value=""/>
 				<br/><br/>
-				<input type="hidden" id="idBand" name="idBand" value="${band.id}"/>
-				<input type="submit" value="Update"/><span style="color:red"> ${update}</span>
+				<input type="submit" value="Add"/><span style="color:red"> ${add}</span>
 			</util:panel>
 		</c:if>
 		
 		<c:if test="${type == 'switch'}">
-			<util:panel title="Update switch" id="switch">
+			<util:panel title="Add switch" id="switch">
 				<label for="dispatcher">Name dispatcher :</label>  
 				<select id="dispatcher" name="dispatcher">
 					<c:forEach items="${dispatchers}" var="dispatcher">
@@ -158,16 +154,15 @@
 						</c:if>
 					</c:forEach>
 				</select><br/><br/>
-				<label for="ipSwitch">IP address switch :</label> <input type="text" id="ipSwitch" name="ipSwitch" value="${switch.ipNetSwitch}"/><br/><br/>
-				<label for="nameSwitch">Name switch :</label> <input type="text" id="nameSwitch" name="nameSwitch" value="${switch.nameNetSwitch}"/>
+				<label for="ipSwitch">IP address switch :</label> <input type="text" id="ipSwitch" name="ipSwitch" value=""/><br/><br/>
+				<label for="nameSwitch">Name switch :</label> <input type="text" id="nameSwitch" name="nameSwitch" value=""/>
 				<br/><br/>
-				<input type="hidden" id="idSwitch" name="idSwitch" value="${switch.id}"/>
-				<input type="submit" value="Update"/><span style="color:red"> ${update}</span>
+				<input type="submit" value="Add"/><span style="color:red"> ${add}</span>
 			</util:panel>
 		</c:if>
 		
 		<c:if test="${type == 'outlet'}">
-			<util:panel title="Update outlet" id="outlet">
+			<util:panel title="Add outlet" id="outlet">
 				<label for="room">Name room :</label> 
 				<select id="room" name="room">
 					<c:forEach items="${rooms}" var="room">
@@ -222,12 +217,9 @@
 						</c:if>
 					</c:forEach>
 				</select><br/><br/>
-				<label for="numOutlet">Number outlet :</label> <input type="text" id="numOutlet" name="numOutlet" value="${outlet.numOutlet}"/>
+				<label for="numOutlet">Number outlet :</label> <input type="text" id="numOutlet" name="numOutlet" value=""/>
 				<br/><br/>
-				<input type="hidden" id="idRoom" name="idRoom" value="${outlet.roomOutlet.id}"/>
-				<input type="hidden" id="idBand" name="idBand" value="${outlet.bandOutlet.id}"/>
-				<input type="hidden" id="idOutlet" name="idOutlet" value="${outlet.id}"/>
-				<input type="submit" value="Update"/><span style="color:red"> ${update}</span>
+				<input type="submit" value="Add"/><span style="color:red"> ${add}</span>
 			</util:panel>
 		</c:if>
 		
@@ -235,13 +227,9 @@
 			<util:panel title="Update module" id="module">
 				IP address switch : <input type="text" id="ipSwitch" name="ipSwitch" value="${module.netSwitchModule.ipNetSwitch}"/><br/>
 				Name switch : <input type="text" id="nameSwitch" name="nameSwitch" value="${module.netSwitchModule.nameNetSwitch}"/><br/>
-				Number module : <input type="text" id="numModule" name="numModule" value="${module.numNetModule}"/>
-				<span style="color:red">${update}</span><br/><br/>
-				<input type="submit" value="Update"/>
-				<input type="hidden" id="idBuilding" name="idBuilding" value="${module.netSwitchModule.dispatcherNetSwitch.buildingDispatcher.id}"/>
-				<input type="hidden" id="idDispatcher" name="idDispatcher" value="${module.netSwitchModule.dispatcherNetSwitch.id}"/>
-				<input type="hidden" id="idSwitch" name="idSwitch" value="${module.netSwitchModule.id}"/>
-				<input type="hidden" id="idModule" name="idModule" value="${module.id}"/>
+				Number module : <input type="text" id="numModule" name="numModule" value=""/>
+				<br/><br/>
+				<input type="submit" value="Add"/><span style="color:red"> ${add}</span>
 			</util:panel>
 		</c:if>
 		<input id="selected" name="selected" type="hidden" value="${type}" />

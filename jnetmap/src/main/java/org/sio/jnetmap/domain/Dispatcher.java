@@ -3,11 +3,13 @@ package org.sio.jnetmap.domain;
 import java.util.List;
 
 import javax.persistence.ManyToOne;
+import javax.persistence.Query;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
 import org.springframework.roo.addon.tostring.RooToString;
+import org.springframework.transaction.annotation.Transactional;
 
 @RooJavaBean
 @RooToString
@@ -48,5 +50,21 @@ public class Dispatcher {
 		return entityManager().createNativeQuery(
 				"SELECT DISTINCT d.* FROM Dispatcher d, Net_Switch s WHERE d.id=0 or (s.dispatcher_net_switch=d.id and s.id="
 						+ id+")", Dispatcher.class).getResultList();
+	}
+    
+    public static Dispatcher maxId() {
+		return entityManager().createQuery(
+				"SELECT o FROM Dispatcher o WHERE o.id=(SELECT MAX(d.id) FROM Dispatcher d)", Dispatcher.class).getSingleResult();
+	}
+	
+	@Transactional
+	public void insert() {
+		Query query = entityManager
+				.createNativeQuery("INSERT INTO Dispatcher(id, name_dispatcher, building_dispatcher)"
+						+ " VALUES(?,?,?)");
+		query.setParameter(1, this.getId());
+		query.setParameter(2, this.getNameDispatcher());
+		query.setParameter(3, this.getBuildingDispatcher());
+		query.executeUpdate();
 	}
 }

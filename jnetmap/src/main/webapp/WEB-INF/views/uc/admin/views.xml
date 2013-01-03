@@ -10,4 +10,7 @@
     <definition extends="public" name="uc/admin/update">
         <put-attribute name="body" value="/WEB-INF/views/uc/admin/update.jspx"/>
     </definition>
+    <definition extends="public" name="uc/admin/add">
+        <put-attribute name="body" value="/WEB-INF/views/uc/admin/add.jspx"/>
+    </definition>
 </tiles-definitions>

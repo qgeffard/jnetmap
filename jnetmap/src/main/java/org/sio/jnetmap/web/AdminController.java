@@ -104,7 +104,7 @@ public class AdminController {
 			}
 			modelMap.addAttribute("type", selected);
 			return "uc/admin/show";
-		}else if(type.equals("update")){
+		}else if(type.equals("update") || type.equals("add")){
 			if(selected.equals("building")){
 				modelMap.addAllAttributes(update(selected, buildId));
 			}else if(selected.equals("room")){
@@ -121,7 +121,113 @@ public class AdminController {
 				modelMap.addAllAttributes(update(selected, netModuleId));
 			}
 			modelMap.addAttribute("type", selected);
-			return "uc/admin/update";
+			if(type.equals("update")){
+				return "uc/admin/update";
+			}else{
+				return "uc/admin/add";
+			}
+		}else if(type.equals("delete")){
+			if(selected.equals("building")){
+				Building building = Building.findBuilding(buildId);
+				rooms = Room.findRoomsOfBuilding(buildId);
+				dispatchers = Dispatcher.findDispatchersOfBuilding(buildId);
+				bands = Band.findBandsOfBuilding(buildId);
+				netSwitches = NetSwitch.findNetSwitchesOfBuilding(buildId);
+				outlets = Outlet.findOutletsOfBuilding(buildId);
+				netModules = NetModule.findNetModulesOfBuilding(buildId);
+				for(int i=0; i<netModules.size();i++){
+					if(netModules.get(i).getId()!=0)
+						netModules.get(i).remove();
+				}
+				for(int i=0; i<outlets.size();i++){
+					if(outlets.get(i).getId()!=0)
+						outlets.get(i).remove();
+				}
+				for(int i=0; i<netSwitches.size();i++){
+					if(netSwitches.get(i).getId()!=0)
+						netSwitches.get(i).remove();
+				}
+				for(int i=0; i<bands.size();i++){
+					if(bands.get(i).getId()!=0)
+						bands.get(i).remove();
+				}
+				for(int i=0; i<dispatchers.size();i++){
+					if(dispatchers.get(i).getId()!=0)
+						dispatchers.get(i).remove();
+				}
+				for(int i=0; i<rooms.size();i++){
+					if(rooms.get(i).getId()!=0)
+						rooms.get(i).remove();
+				}
+				building.remove();
+			}else if(selected.equals("room")){
+				Room room = Room.findRoom(roomId);
+				outlets = Outlet.findOutletsOfRoom(roomId);
+				for(int i=0; i<outlets.size();i++){
+					outlets.get(i).remove();
+				}
+				room.remove();
+				rooms = Room.findAllRoomsOrder();
+			}else if(selected.equals("dispatcher")){
+				Dispatcher dispatcher = Dispatcher.findDispatcher(dispatcherId);
+				bands = Band.findBandsOfDispatcher(dispatcherId);
+				netSwitches = NetSwitch.findNetSwitchesOfDispatcher(dispatcherId);
+				netModules = NetModule.findNetModulesOfDispatcher(dispatcherId);
+				for(int i=0; i<netModules.size();i++){
+					if(netModules.get(i).getId()!=0)
+						netModules.get(i).remove();
+				}
+				for(int i=1; i<netSwitches.size();i++){
+					if(netSwitches.get(i).getId()!=0)
+						netSwitches.get(i).remove();
+				}
+				for(int i=0; i<bands.size();i++){
+					if(bands.get(i).getId()!=0)
+						bands.get(i).remove();
+				}
+				dispatcher.remove();
+			}else if(selected.equals("band")){
+				Band band = Band.findBand(bandId);
+				netSwitches = NetSwitch.findNetSwitchesOfBand(bandId);
+				outlets = Outlet.findOutletsOfBand(bandId);
+				for(int i=0; i<outlets.size();i++){
+					if(outlets.get(i).getId()!=0)
+						outlets.get(i).remove();
+				}
+				for(int i=0; i<netSwitches.size();i++){
+					if(netSwitches.get(i).getId()!=0){
+						netModules = NetModule.findNetModulesOfNetSwitch(netSwitches.get(i).getId());
+						for(int j=0; j<netModules.size();j++){
+							if(netModules.get(i).getId()!=0)
+								netModules.get(j).remove();
+						}
+						netSwitches.get(i).remove();
+					}
+				}
+				band.remove();
+			}else if(selected.equals("switch")){
+				NetSwitch netSwitch = NetSwitch.findNetSwitch(netSwitchId);
+				netModules = NetModule.findNetModulesOfNetSwitch(netSwitchId);
+				for(int i=0; i<netModules.size();i++){
+					if(netModules.get(i).getId()!=0)
+						netModules.get(i).remove();
+				}
+				netSwitch.remove();
+			}else if(selected.equals("outlet")){
+				Outlet outlet = Outlet.findOutlet(outletId);
+				outlet.remove();
+			}else if(selected.equals("module")){
+				NetModule netModule = NetModule.findNetModule(netModuleId);
+				netModule.remove();
+			}
+			modelMap.addAttribute("selected", "nothing");
+			buildings = Building.findAllBuildingsOrder();
+			rooms = Room.findAllRoomsOrder();
+			dispatchers = Dispatcher.findAllDispatchersOrder();
+			bands = Band.findAllBandsOrder();
+			netSwitches = NetSwitch.findAllNetSwitchesOrder();
+			outlets = Outlet.findAllOutletsOrder();
+			netModules = NetModule.findAllNetModulesOrder();
 		}
 		
 		if(selected.equals("building")) {
@@ -488,7 +594,7 @@ public class AdminController {
 			modelMap.addAttribute("outlet", outlet);
 		}else if(selected.equals("module")){
 			NetModule netModule = NetModule.findNetModule(id);
-			modelMap.addAttribute("netModule", netModule);
+			modelMap.addAttribute("module", netModule);
 		}
 		return modelMap;
 	}
@@ -498,9 +604,14 @@ public class AdminController {
 		List<Building> buildings = Building.findAllBuildingsOrder();
 		List<Room> rooms = Room.findAllRoomsOrder();
 		List<Dispatcher> dispatchers = Dispatcher.findAllDispatchersOrder();
+		List<Band> bands = Band.findAllBandsOrder();
 		modelMap.addAttribute("buildings", buildings);
 		modelMap.addAttribute("rooms", rooms);
 		modelMap.addAttribute("dispatchers", dispatchers);
+		modelMap.addAttribute("bands", bands);
+		
+		List<Dispatcher> dispatchersBis = Dispatcher.findAllDispatchersOrder();
+		modelMap.addAttribute("dispatchersBis", dispatchersBis);
 		
 		if(selected.equals("building")){
 			Building building = Building.findBuilding(id);
@@ -516,23 +627,19 @@ public class AdminController {
 		}else if(selected.equals("band")){
 			Band band = Band.findBand(id);
 			modelMap.addAttribute("band", band);
-			modelMap.addAttribute("buildingId", band.getDispatcherBand().getBuildingDispatcher().getId());
 			modelMap.addAttribute("dispatcherId", band.getDispatcherBand().getId());
 		}else if(selected.equals("switch")){
 			NetSwitch netSwitch = NetSwitch.findNetSwitch(id);
 			modelMap.addAttribute("switch", netSwitch);
-			modelMap.addAttribute("buildingId", netSwitch.getDispatcherNetSwitch().getBuildingDispatcher().getId());
 			modelMap.addAttribute("dispatcherId", netSwitch.getDispatcherNetSwitch().getId());
 		}else if(selected.equals("outlet")){
 			Outlet outlet = Outlet.findOutlet(id);
 			modelMap.addAttribute("outlet", outlet);
-			modelMap.addAttribute("buildingId", outlet.getRoomOutlet().getBuildingRoom().getId());
 			modelMap.addAttribute("roomId", outlet.getRoomOutlet().getId());
-			modelMap.addAttribute("dispatcherId", outlet.getBandOutlet().getDispatcherBand().getId());
 			modelMap.addAttribute("bandId", outlet.getBandOutlet().getId());
 		}else if(selected.equals("module")){
 			NetModule netModule = NetModule.findNetModule(id);
-			modelMap.addAttribute("netModule", netModule);
+			modelMap.addAttribute("module", netModule);
 		}
 		return modelMap;
 	}
@@ -543,6 +650,8 @@ public class AdminController {
 		List<Building> buildings = Building.findAllBuildingsOrder();
 		List<Room> rooms = Room.findAllRoomsOrder();
 		List<Dispatcher> dispatchers = Dispatcher.findAllDispatchersOrder();
+		List<Band> bands = Band.findAllBandsOrder();
+		List<Dispatcher> dispatchersBis = Dispatcher.findAllDispatchersOrder();
 		Building building = new Building();
 		Dispatcher dispatcher = new Dispatcher();
 		Room room = new Room();
@@ -554,7 +663,7 @@ public class AdminController {
 			String name = wr.getParameter("nameBuilding");
 			building = Building.findBuilding(Long.parseLong(strBuildId));
 			building.setNameBuilding(name);
-			building.persist();
+			building.merge();
 		}else if(selected.equals("room")){
 			String strRoomId = wr.getParameter("idRoom");
 			String nameRoom = wr.getParameter("nameRoom");
@@ -562,7 +671,7 @@ public class AdminController {
 			room = Room.findRoom(Long.parseLong(strRoomId));
 			room.setBuildingRoom(building);
 			room.setNameRoom(nameRoom);
-			room.persist();
+			room.merge();
 		}else if(selected.equals("dispatcher")){
 			strDispatcherId = wr.getParameter("idDispatcher");
 			String nameDispatcher = wr.getParameter("nameDispatcher");
@@ -570,49 +679,38 @@ public class AdminController {
 			dispatcher = Dispatcher.findDispatcher(Long.parseLong(strDispatcherId));
 			dispatcher.setBuildingDispatcher(building);
 			dispatcher.setNameDispatcher(nameDispatcher);
-			dispatcher.persist();
+			dispatcher.merge();
 		}else if(selected.equals("band")){
 			String strBandId = wr.getParameter("idBand");
 			String numBand = wr.getParameter("numBand");
-			building = Building.findBuilding(Long.parseLong(strBuildId));
 			dispatcher = Dispatcher.findDispatcher(Long.parseLong(strDispatcherId));
 			band = Band.findBand(Long.parseLong(strBandId));
-			dispatcher.setBuildingDispatcher(building);
 			band.setDispatcherBand(dispatcher);
 			band.setNumBand(numBand);
-			band.persist();	
+			band.merge();	
 		}else if(selected.equals("switch")){
 			String strSwitchId = wr.getParameter("idSwitch");
 			String ipSwitch = wr.getParameter("ipSwitch");
 			String nameSwitch = wr.getParameter("nameSwitch");
-			building = Building.findBuilding(Long.parseLong(strBuildId));
 			dispatcher = Dispatcher.findDispatcher(Long.parseLong(strDispatcherId));
 			NetSwitch netSwitch = NetSwitch.findNetSwitch(Long.parseLong(strSwitchId));
-			dispatcher.setBuildingDispatcher(building);
 			netSwitch.setDispatcherNetSwitch(dispatcher);
 			netSwitch.setIpNetSwitch(ipSwitch);
 			netSwitch.setNameNetSwitch(nameSwitch);
-			netSwitch.persist();
+			netSwitch.merge();
 			modelMap.addAttribute("switch", netSwitch);
 		}else if(selected.equals("outlet")){
 			String strRoomId = wr.getParameter("room");
-			String strBandId = wr.getParameter("idBand");
+			String strBandId = wr.getParameter("band");
 			String strOutletId = wr.getParameter("idOutlet");
-			String numBand = wr.getParameter("numBand");
 			String numOutlet = wr.getParameter("numOutlet");
-			building = Building.findBuilding(Long.parseLong(strBuildId));
 			room = Room.findRoom(Long.parseLong(strRoomId));
-			dispatcher = Dispatcher.findDispatcher(Long.parseLong(strDispatcherId));
 			band = Band.findBand(Long.parseLong(strBandId));
 			Outlet outlet = Outlet.findOutlet(Long.parseLong(strOutletId));
-			room.setBuildingRoom(building);
-			dispatcher.setBuildingDispatcher(building);
-			band.setDispatcherBand(dispatcher);
-			band.setNumBand(numBand);
 			outlet.setBandOutlet(band);
 			outlet.setRoomOutlet(room);
 			outlet.setNumOutlet(numOutlet);
-			outlet.persist();
+			outlet.merge();
 			modelMap.addAttribute("outlet", outlet);
 		}
 		
@@ -622,15 +720,113 @@ public class AdminController {
 		modelMap.addAttribute("dispatcher", dispatcher);
 		modelMap.addAttribute("dispatcherId", dispatcher.getId());
 		modelMap.addAttribute("dispatchers", dispatchers);
+		modelMap.addAttribute("dispatchersBis", dispatchersBis);
 		modelMap.addAttribute("room", room);
 		modelMap.addAttribute("roomId", room.getId());
 		modelMap.addAttribute("rooms", rooms);
 		modelMap.addAttribute("band", band);
 		modelMap.addAttribute("bandId", band.getId());
+		modelMap.addAttribute("bands", bands);
 
 		modelMap.addAttribute("type", selected);
 		String update = "Updated";
 		modelMap.addAttribute("update", update);
 		return "uc/admin/update";
+	}
+	
+	@RequestMapping(value="add")
+	public String doAdd(ModelMap modelMap, WebRequest wr) {
+		String selected = wr.getParameter("selected");
+		List<Building> buildings = Building.findAllBuildingsOrder();
+		List<Room> rooms = Room.findAllRoomsOrder();
+		List<Dispatcher> dispatchers = Dispatcher.findAllDispatchersOrder();
+		List<Band> bands = Band.findAllBandsOrder();
+		List<Dispatcher> dispatchersBis = Dispatcher.findAllDispatchersOrder();
+		Building building = new Building();
+		Dispatcher dispatcher = new Dispatcher();
+		Room room = new Room();
+		Band band = new Band();
+		String strBuildId = wr.getParameter("building");
+		String strDispatcherId = wr.getParameter("dispatcher");
+		if(selected.equals("building")){
+			String name = wr.getParameter("nameBuilding");
+			building.setNameBuilding(name);
+			building.persist();
+		}else if(selected.equals("room")){
+			String nameRoom = wr.getParameter("nameRoom");
+			building = Building.findBuilding(Long.parseLong(strBuildId));
+			room.setId(Room.maxId().getId()+1);
+			room.setBuildingRoom(building);
+			room.setNameRoom(nameRoom);
+			room.persist(); //Fonctionnne pas pour cause de violation de contrainte
+			/*
+			 * Utilisation de la méthode insert() mais remove() ne fonctionne plus dans ce cas
+			 */
+		}else if(selected.equals("dispatcher")){
+			String nameDispatcher = wr.getParameter("nameDispatcher");
+			building = Building.findBuilding(Long.parseLong(strBuildId));
+			dispatcher.setId(Dispatcher.maxId().getId()+1);
+			dispatcher.setBuildingDispatcher(building);
+			dispatcher.setNameDispatcher(nameDispatcher);
+			dispatcher.persist();//Fonctionnne pas pour cause de violation de contrainte
+			/*
+			 * Utilisation de la méthode insert() mais remove() ne fonctionne plus dans ce cas
+			 */
+		}else if(selected.equals("band")){
+			String numBand = wr.getParameter("numBand");
+			dispatcher = Dispatcher.findDispatcher(Long.parseLong(strDispatcherId));
+			band.setId(Band.maxId().getId()+1);
+			band.setDispatcherBand(dispatcher);
+			band.setNumBand(numBand);
+			band.persist();//Fonctionnne pas pour cause de violation de contrainte
+			/*
+			 * Utilisation de la méthode insert() mais remove() ne fonctionne plus dans ce cas
+			 */
+		}else if(selected.equals("switch")){
+			String ipSwitch = wr.getParameter("ipSwitch");
+			String nameSwitch = wr.getParameter("nameSwitch");
+			dispatcher = Dispatcher.findDispatcher(Long.parseLong(strDispatcherId));
+			NetSwitch netSwitch = new NetSwitch();
+			netSwitch.setDispatcherNetSwitch(dispatcher);
+			netSwitch.setIpNetSwitch(ipSwitch);
+			netSwitch.setNameNetSwitch(nameSwitch);
+			netSwitch.persist();
+			modelMap.addAttribute("switch", netSwitch);
+		}else if(selected.equals("outlet")){
+			String strRoomId = wr.getParameter("room");
+			String strBandId = wr.getParameter("band");
+			String numOutlet = wr.getParameter("numOutlet");
+			room = Room.findRoom(Long.parseLong(strRoomId));
+			band = Band.findBand(Long.parseLong(strBandId));
+			Outlet outlet = new Outlet();
+			outlet.setId(Outlet.maxId().getId()+1);
+			outlet.setBandOutlet(band);
+			outlet.setRoomOutlet(room);
+			outlet.setNumOutlet(numOutlet);
+			outlet.persist();//Fonctionnne pas pour cause de violation de contrainte
+			/*
+			 * Utilisation de la méthode insert() mais remove() ne fonctionne plus dans ce cas
+			 */
+			modelMap.addAttribute("outlet", outlet);
+		}
+		
+		modelMap.addAttribute("building", building);
+		modelMap.addAttribute("buildingId", building.getId());
+		modelMap.addAttribute("buildings", buildings);
+		modelMap.addAttribute("dispatcher", dispatcher);
+		modelMap.addAttribute("dispatcherId", dispatcher.getId());
+		modelMap.addAttribute("dispatchers", dispatchers);
+		modelMap.addAttribute("dispatchersBis", dispatchersBis);
+		modelMap.addAttribute("room", room);
+		modelMap.addAttribute("roomId", room.getId());
+		modelMap.addAttribute("rooms", rooms);
+		modelMap.addAttribute("band", band);
+		modelMap.addAttribute("bandId", band.getId());
+		modelMap.addAttribute("bands", bands);
+		
+		modelMap.addAttribute("type", selected);
+		String add = "Added";
+		modelMap.addAttribute("add", add);
+		return "uc/admin/add";
 	}
 }

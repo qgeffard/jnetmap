@@ -6,7 +6,12 @@
 
 	<jsp:directive.page contentType="text/html;charset=UTF-8" />
 	<jsp:output omit-xml-declaration="yes" />
-
+	
+	<span style="color:red">
+	L'ajout ne fonctionne pas correctement pour certains type, pour cause de violation de contraintes (Room, Dispatcher, Band, Outlet)<br/>
+	Le problème semble lié à la BDD
+	</span>
+	
 	<form action="index" method="post" id="formadmin">
 		<util:panel title="Buildings (${buildingsCount})" id="buildings">
 			<table>
@@ -35,12 +40,14 @@
 								</c:if>
 							</c:forEach>
 					</select></td>
-					<td><img style="cursor: pointer"
-						onClick="document.getElementById('type').value='show';document.getElementById('selected').value='building';document.getElementById('formadmin').submit()"
+					<td style="cursor: pointer"><img onClick="document.getElementById('type').value='show';document.getElementById('selected').value='building';document.getElementById('formadmin').submit()"
 						src="../../images/show.png" alt="show" title="Show"/>
-					<img style="cursor: pointer"
-						onClick="document.getElementById('type').value='update';document.getElementById('selected').value='building';document.getElementById('formadmin').submit()"
-						src="../../images/update.png" alt="update" title="Update"/></td>
+					<img onClick="document.getElementById('type').value='add';document.getElementById('selected').value='building';document.getElementById('formadmin').submit()"
+						src="../../images/add.png" alt="add" title="Add"/>
+					<img onClick="document.getElementById('type').value='update';document.getElementById('selected').value='building';document.getElementById('formadmin').submit()"
+						src="../../images/update.png" alt="update" title="Update"/>
+					<img onClick="if(confirm('Please confirm your deletion')){document.getElementById('type').value='delete';document.getElementById('selected').value='building';document.getElementById('formadmin').submit()}"
+						src="../../images/delete.png" alt="delete" title="Delete"/></td>
 				</tr>
 			</table>
 		</util:panel>
@@ -81,12 +88,14 @@
 								</c:if>
 							</c:forEach>
 					</select></td>
-					<td><img style="cursor: pointer"
-						onClick="document.getElementById('type').value='show';document.getElementById('selected').value='room';document.getElementById('formadmin').submit()"
+					<td style="cursor: pointer"><img onClick="document.getElementById('type').value='show';document.getElementById('selected').value='room';document.getElementById('formadmin').submit()"
 						src="../../images/show.png" alt="show" title="Show"/>
-					<img style="cursor: pointer"
-						onClick="document.getElementById('type').value='update';document.getElementById('selected').value='room';document.getElementById('formadmin').submit()"
-						src="../../images/update.png" alt="update" title="Update"/></td>
+					<img onClick="document.getElementById('type').value='add';document.getElementById('selected').value='room';document.getElementById('formadmin').submit()"
+						src="../../images/add.png" alt="add" title="Add"/>
+					<img onClick="document.getElementById('type').value='update';document.getElementById('selected').value='room';document.getElementById('formadmin').submit()"
+						src="../../images/update.png" alt="update" title="Update"/>
+					<img onClick="if(confirm('Please confirm your deletion')){document.getElementById('type').value='delete';document.getElementById('selected').value='room';document.getElementById('formadmin').submit()}"
+						src="../../images/delete.png" alt="delete" title="Delete"/></td>
 				</tr>
 			</table>
 		</util:panel>
@@ -128,12 +137,14 @@
 							</c:if>
 						</c:forEach>
 					</select></td>
-					<td><img style="cursor: pointer"
-						onClick="document.getElementById('type').value='show';document.getElementById('selected').value='dispatcher';document.getElementById('formadmin').submit()"
+					<td style="cursor: pointer"><img onClick="document.getElementById('type').value='show';document.getElementById('selected').value='dispatcher';document.getElementById('formadmin').submit()"
 						src="../../images/show.png" alt="show" title="Show"/>
-					<img style="cursor: pointer"
-						onClick="document.getElementById('type').value='update';document.getElementById('selected').value='dispatcher';document.getElementById('formadmin').submit()"
-						src="../../images/update.png" alt="update" title="Update"/></td>
+					<img onClick="document.getElementById('type').value='add';document.getElementById('selected').value='dispatcher';document.getElementById('formadmin').submit()"
+						src="../../images/add.png" alt="add" title="Add"/>
+					<img onClick="document.getElementById('type').value='update';document.getElementById('selected').value='dispatcher';document.getElementById('formadmin').submit()"
+						src="../../images/update.png" alt="update" title="Update"/>
+					<img onClick="if(confirm('Please confirm your deletion')){document.getElementById('type').value='delete';document.getElementById('selected').value='dispatcher';document.getElementById('formadmin').submit()}"
+						src="../../images/delete.png" alt="delete" title="Delete"/></td>
 				</tr>
 			</table>
 		</util:panel>
@@ -163,12 +174,14 @@
 							</c:if>
 						</c:forEach>
 					</select></td>
-					<td><img style="cursor: pointer"
-						onClick="document.getElementById('type').value='show';document.getElementById('selected').value='band';document.getElementById('formadmin').submit()"
+					<td style="cursor: pointer"><img onClick="document.getElementById('type').value='show';document.getElementById('selected').value='band';document.getElementById('formadmin').submit()"
 						src="../../images/show.png" alt="show" title="Show"/>
-					<img style="cursor: pointer"
-						onClick="document.getElementById('type').value='update';document.getElementById('selected').value='band';document.getElementById('formadmin').submit()"
-						src="../../images/update.png" alt="update" title="Update"/></td>
+					<img onClick="document.getElementById('type').value='add';document.getElementById('selected').value='band';document.getElementById('formadmin').submit()"
+						src="../../images/add.png" alt="add" title="Add"/>
+					<img onClick="document.getElementById('type').value='update';document.getElementById('selected').value='band';document.getElementById('formadmin').submit()"
+						src="../../images/update.png" alt="update" title="Update"/>
+					<img onClick="if(confirm('Please confirm your deletion')){document.getElementById('type').value='delete';document.getElementById('selected').value='band';document.getElementById('formadmin').submit()}"
+						src="../../images/delete.png" alt="delete" title="Delete"/></td>
 				</tr>
 			</table>
 		</util:panel>
@@ -204,12 +217,14 @@
 							</c:if>
 						</c:forEach>
 					</select></td>
-					<td><img style="cursor: pointer"
-						onClick="document.getElementById('type').value='show';document.getElementById('selected').value='switch';document.getElementById('formadmin').submit()"
+					<td style="cursor: pointer"><img onClick="document.getElementById('type').value='show';document.getElementById('selected').value='switch';document.getElementById('formadmin').submit()"
 						src="../../images/show.png" alt="show" title="Show"/>
-					<img style="cursor: pointer"
-						onClick="document.getElementById('type').value='update';document.getElementById('selected').value='switch';document.getElementById('formadmin').submit()"
-						src="../../images/update.png" alt="update" title="Update"/></td>
+					<img onClick="document.getElementById('type').value='add';document.getElementById('selected').value='switch';document.getElementById('formadmin').submit()"
+						src="../../images/add.png" alt="add" title="Add"/>
+					<img onClick="document.getElementById('type').value='update';document.getElementById('selected').value='switch';document.getElementById('formadmin').submit()"
+						src="../../images/update.png" alt="update" title="Update"/>
+					<img onClick="if(confirm('Please confirm your deletion')){document.getElementById('type').value='delete';document.getElementById('selected').value='switch';document.getElementById('formadmin').submit()}"
+						src="../../images/delete.png" alt="delete" title="Delete"/></td>
 				</tr>
 			</table>
 		</util:panel>
@@ -262,12 +277,14 @@
 							</c:if>
 						</c:forEach>
 					</select></td>
-					<td><img style="cursor: pointer"
-						onClick="document.getElementById('type').value='show';document.getElementById('selected').value='outlet';document.getElementById('formadmin').submit()"
+					<td style="cursor: pointer"><img onClick="document.getElementById('type').value='show';document.getElementById('selected').value='outlet';document.getElementById('formadmin').submit()"
 						src="../../images/show.png" alt="show" title="Show"/>
-					<img style="cursor: pointer"
-						onClick="document.getElementById('type').value='update';document.getElementById('selected').value='outlet';document.getElementById('formadmin').submit()"
-						src="../../images/update.png" alt="update" title="Update"/></td>
+					<img onClick="document.getElementById('type').value='add';document.getElementById('selected').value='outlet';document.getElementById('formadmin').submit()"
+						src="../../images/add.png" alt="add" title="Add"/>
+					<img onClick="document.getElementById('type').value='update';document.getElementById('selected').value='outlet';document.getElementById('formadmin').submit()"
+						src="../../images/update.png" alt="update" title="Update"/>
+					<img onClick="if(confirm('Please confirm your deletion')){document.getElementById('type').value='delete';document.getElementById('selected').value='outlet';document.getElementById('formadmin').submit()}"
+						src="../../images/delete.png" alt="delete" title="Delete"/></td>
 				</tr>
 			</table>
 		</util:panel>
@@ -297,12 +314,14 @@
 							</c:if>
 						</c:forEach>
 					</select></td>
-					<td><img style="cursor: pointer"
-						onClick="document.getElementById('type').value='show';document.getElementById('selected').value='module';document.getElementById('formadmin').submit()"
+					<td style="cursor: pointer"><img onClick="document.getElementById('type').value='show';document.getElementById('selected').value='module';document.getElementById('formadmin').submit()"
 						src="../../images/show.png" alt="show" title="Show"/>
-					<img style="cursor: pointer"
-						onClick="document.getElementById('type').value='update';document.getElementById('selected').value='module';document.getElementById('formadmin').submit()"
-						src="../../images/update.png" alt="update" title="Update"/></td>
+					<img onClick="document.getElementById('type').value='add';document.getElementById('selected').value='module';document.getElementById('formadmin').submit()"
+						src="../../images/add.png" alt="add" title="Add"/>
+					<img onClick="document.getElementById('type').value='update';document.getElementById('selected').value='module';document.getElementById('formadmin').submit()"
+						src="../../images/update.png" alt="update" title="Update"/>
+					<img onClick="if(confirm('Please confirm your deletion')){document.getElementById('type').value='delete';document.getElementById('selected').value='module';document.getElementById('formadmin').submit()}"
+						src="../../images/delete.png" alt="delete" title="Delete"/></td>
 				</tr>
 			</table>
 		</util:panel>

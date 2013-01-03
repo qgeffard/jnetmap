@@ -3,11 +3,13 @@ package org.sio.jnetmap.domain;
 import java.util.List;
 
 import javax.persistence.ManyToOne;
+import javax.persistence.Query;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
 import org.springframework.roo.addon.tostring.RooToString;
+import org.springframework.transaction.annotation.Transactional;
 
 @RooJavaBean
 @RooToString
@@ -15,9 +17,9 @@ import org.springframework.roo.addon.tostring.RooToString;
 public class Outlet {
 
 	@NotNull
-	@Size(min = 2, max = 30)
+	@Size(min = 1, max = 30)
 	private String numOutlet;
-
+	
 	private int portOutlet;
 
 	@ManyToOne
@@ -77,4 +79,23 @@ public class Outlet {
 						+ idBand + " ORDER BY r.name_room, o.num_outlet",
 				Outlet.class).getResultList();
 	}
+	
+	public static Outlet maxId() {
+		return entityManager().createQuery(
+				"SELECT o FROM Outlet o WHERE o.id=(SELECT MAX(o.id) FROM Outlet o)", Outlet.class).getSingleResult();
+	}
+	
+	@Transactional
+	public void insert() {
+		Query query = entityManager
+				.createNativeQuery("INSERT INTO Outlet(id, num_outlet, room_outlet, band_outlet, port_outlet)"
+						+ " VALUES(?,?,?,?,?)");
+		query.setParameter(1, this.getId());
+		query.setParameter(2, this.getNumOutlet());
+		query.setParameter(3, this.getRoomOutlet());
+		query.setParameter(4, this.getBandOutlet());
+		query.setParameter(5, 0);
+		query.executeUpdate();
+	}
+	
 }

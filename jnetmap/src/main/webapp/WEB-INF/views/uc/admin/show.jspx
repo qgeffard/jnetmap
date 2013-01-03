@@ -12,14 +12,15 @@
 			<util:panel title="Show building" id="building">
 				<label>Name building :</label> ${building.nameBuilding}
 				<input type="hidden" id="building" name="building" value="${building.id}"/>
-				<span style="position:absolute;right:250px;">
+				<span style="position:absolute;right:250px;cursor: pointer">
 					<!-- Mettre les liens pour lister, ajouter, MAJ, supprimer -->
 					<img src="../../images/list.png" alt="list"/>
-					<img src="../../images/add.png" alt="add"/>
-					<img style="cursor: pointer"
-						onClick="document.getElementById('type').value='update';document.getElementById('selected').value='building';document.getElementById('formadmin').submit()"
+					<img onClick="document.getElementById('type').value='add';document.getElementById('selected').value='building';document.getElementById('formadmin').submit()"
+						src="../../images/add.png" alt="add" title="Add"/>
+					<img onClick="document.getElementById('type').value='update';document.getElementById('selected').value='building';document.getElementById('formadmin').submit()"
 						src="../../images/update.png" alt="update" title="Update"/>
-					<img src="../../images/delete.png" alt="delete"/>
+					<img onClick="if(confirm('Please confirm your deletion')){document.getElementById('type').value='delete';document.getElementById('selected').value='building';document.getElementById('formadmin').submit()}"
+						src="../../images/delete.png" alt="delete" title="Delete"/>
 				</span>
 				<br/><br/><a href="index"><button type="button">Return to Index</button></a>
 			</util:panel>
@@ -31,14 +32,15 @@
 				<label>Name room :</label> ${room.nameRoom}
 				<input type="hidden" id="building" name="building" value="${room.buildingRoom.id}"/>
 				<input type="hidden" id="room" name="room" value="${room.id}"/>
-				<span style="position:absolute;right:250px;">
+				<span style="position:absolute;right:250px;cursor: pointer">
 					<!-- Mettre les liens pour lister, ajouter, MAJ, supprimer -->
 					<img src="../../images/list.png" alt="list"/>
-					<img src="../../images/add.png" alt="add"/>
-					<img style="cursor: pointer"
-						onClick="document.getElementById('type').value='update';document.getElementById('selected').value='room';document.getElementById('formadmin').submit()"
+					<img onClick="document.getElementById('type').value='add';document.getElementById('selected').value='room';document.getElementById('formadmin').submit()"
+						src="../../images/add.png" alt="add" title="Add"/>
+					<img onClick="document.getElementById('type').value='update';document.getElementById('selected').value='room';document.getElementById('formadmin').submit()"
 						src="../../images/update.png" alt="update" title="Update"/>
-					<img src="../../images/delete.png" alt="delete"/>
+					<img onClick="if(confirm('Please confirm your deletion')){document.getElementById('type').value='delete';document.getElementById('selected').value='room';document.getElementById('formadmin').submit()}"
+						src="../../images/delete.png" alt="delete" title="Delete"/>
 				</span>
 				<br/><br/><a href="index"><button type="button">Return to Index</button></a>
 			</util:panel>
@@ -50,14 +52,15 @@
 				<label>Name dispatcher :</label> ${dispatcher.nameDispatcher}
 				<input type="hidden" id="building" name="building" value="${dispatcher.buildingDispatcher.id}"/>
 				<input type="hidden" id="dispatcher" name="dispatcher" value="${dispatcher.id}"/>
-				<span style="position:absolute;right:250px;">
+				<span style="position:absolute;right:250px;cursor: pointer">
 					<!-- Mettre les liens pour lister, ajouter, MAJ, supprimer -->
 					<img src="../../images/list.png" alt="list"/>
-					<img src="../../images/add.png" alt="add"/>
-					<img style="cursor: pointer"
-						onClick="document.getElementById('type').value='update';document.getElementById('selected').value='dispatcher';document.getElementById('formadmin').submit()"
+					<img onClick="document.getElementById('type').value='add';document.getElementById('selected').value='dispatcher';document.getElementById('formadmin').submit()"
+						src="../../images/add.png" alt="add" title="Add"/>
+					<img onClick="document.getElementById('type').value='update';document.getElementById('selected').value='dispatcher';document.getElementById('formadmin').submit()"
 						src="../../images/update.png" alt="update" title="Update"/>
-					<img src="../../images/delete.png" alt="delete"/>
+					<img onClick="if(confirm('Please confirm your deletion')){document.getElementById('type').value='delete';document.getElementById('selected').value='dispatcher';document.getElementById('formadmin').submit()}"
+						src="../../images/delete.png" alt="delete" title="Delete"/>
 				</span>
 				<br/><br/><a href="index"><button type="button">Return to Index</button></a>
 			</util:panel>
@@ -71,14 +74,15 @@
 				<input type="hidden" id="building" name="building" value="${band.dispatcherBand.buildingDispatcher.id}"/>
 				<input type="hidden" id="dispatcher" name="dispatcher" value="${band.dispatcherBand.id}"/>
 				<input type="hidden" id="band" name="band" value="${band.id}"/>
-				<span style="position:absolute;right:250px;">
+				<span style="position:absolute;right:250px;cursor: pointer">
 					<!-- Mettre les liens pour lister, ajouter, MAJ, supprimer -->
 					<img src="../../images/list.png" alt="list"/>
-					<img src="../../images/add.png" alt="add"/>
-					<img style="cursor: pointer"
-						onClick="document.getElementById('type').value='update';document.getElementById('selected').value='band';document.getElementById('formadmin').submit()"
+					<img onClick="document.getElementById('type').value='add';document.getElementById('selected').value='band';document.getElementById('formadmin').submit()"
+						src="../../images/add.png" alt="add" title="Add"/>
+					<img onClick="document.getElementById('type').value='update';document.getElementById('selected').value='band';document.getElementById('formadmin').submit()"
 						src="../../images/update.png" alt="update" title="Update"/>
-					<img src="../../images/delete.png" alt="delete"/>
+					<img onClick="if(confirm('Please confirm your deletion')){document.getElementById('type').value='band';document.getElementById('selected').value='switch';document.getElementById('formadmin').submit()}"
+						src="../../images/delete.png" alt="delete" title="Delete"/>
 				</span>
 				<br/><br/><a href="index"><button type="button">Return to Index</button></a>
 			</util:panel>
@@ -93,14 +97,15 @@
 				<input type="hidden" id="building" name="building" value="${switch.dispatcherNetSwitch.buildingDispatcher.id}"/>
 				<input type="hidden" id="dispatcher" name="dispatcher" value="${switch.dispatcherNetSwitch.id}"/>
 				<input type="hidden" id="netSwitch" name="netSwitch" value="${switch.id}"/>
-				<span style="position:absolute;right:250px;">
+				<span style="position:absolute;right:250px;cursor: pointer">
 					<!-- Mettre les liens pour lister, ajouter, MAJ, supprimer -->
 					<img src="../../images/list.png" alt="list"/>
-					<img src="../../images/add.png" alt="add"/>
-					<img style="cursor: pointer"
-						onClick="document.getElementById('type').value='update';document.getElementById('selected').value='switch';document.getElementById('formadmin').submit()"
+					<img onClick="document.getElementById('type').value='add';document.getElementById('selected').value='switch';document.getElementById('formadmin').submit()"
+						src="../../images/add.png" alt="add" title="Add"/>
+					<img onClick="document.getElementById('type').value='update';document.getElementById('selected').value='switch';document.getElementById('formadmin').submit()"
 						src="../../images/update.png" alt="update" title="Update"/>
-					<img src="../../images/delete.png" alt="delete"/>
+					<img onClick="if(confirm('Please confirm your deletion')){document.getElementById('type').value='delete';document.getElementById('selected').value='switch';document.getElementById('formadmin').submit()}"
+						src="../../images/delete.png" alt="delete" title="Delete"/>
 				</span>
 				<br/><br/><a href="index"><button type="button">Return to Index</button></a>
 			</util:panel>
@@ -118,14 +123,15 @@
 				<input type="hidden" id="dispatcher" name="dispatcher" value="${outlet.bandOutlet.dispatcherBand.id}"/>
 				<input type="hidden" id="band" name="band" value="${outlet.bandOutlet.id}"/>
 				<input type="hidden" id="outlet" name="outlet" value="${outlet.id}"/>
-				<span style="position:absolute;right:250px;">
+				<span style="position:absolute;right:250px;cursor: pointer">
 					<!-- Mettre les liens pour lister, ajouter, MAJ, supprimer -->
 					<img src="../../images/list.png" alt="list"/>
-					<img src="../../images/add.png" alt="add"/>
-					<img style="cursor: pointer"
-						onClick="document.getElementById('type').value='update';document.getElementById('selected').value='outlet';document.getElementById('formadmin').submit()"
+					<img onClick="document.getElementById('type').value='add';document.getElementById('selected').value='outlet';document.getElementById('formadmin').submit()"
+						src="../../images/add.png" alt="add" title="Add"/>
+					<img onClick="document.getElementById('type').value='update';document.getElementById('selected').value='outlet';document.getElementById('formadmin').submit()"
 						src="../../images/update.png" alt="update" title="Update"/>
-					<img src="../../images/delete.png" alt="delete"/>
+					<img onClick="if(confirm('Please confirm your deletion')){document.getElementById('type').value='delete';document.getElementById('selected').value='outlet';document.getElementById('formadmin').submit()}"
+						src="../../images/delete.png" alt="delete" title="Delete"/>
 				</span>
 				<br/><br/><a href="index"><button type="button">Return to Index</button></a>
 			</util:panel>
@@ -142,14 +148,15 @@
 				<input type="hidden" id="dispatcher" name="dispatcher" value="${module.netSwitchModule.dispatcherNetSwitch.id}"/>
 				<input type="hidden" id="netSwitch" name="netSwitch" value="${module.netSwitchModule.id}"/>
 				<input type="hidden" id="netModule" name="netModule" value="${module.id}"/>
-				<span style="position:absolute;right:250px;">
+				<span style="position:absolute;right:250px;cursor: pointer">
 					<!-- Mettre les liens pour lister, ajouter, MAJ, supprimer -->
 					<img src="../../images/list.png" alt="list"/>
-					<img src="../../images/add.png" alt="add"/>
-					<img style="cursor: pointer"
-						onClick="document.getElementById('type').value='update';document.getElementById('selected').value='module';document.getElementById('formadmin').submit()"
+					<img onClick="document.getElementById('type').value='add';document.getElementById('selected').value='module';document.getElementById('formadmin').submit()"
+						src="../../images/add.png" alt="add" title="Add"/>
+					<img onClick="document.getElementById('type').value='update';document.getElementById('selected').value='module';document.getElementById('formadmin').submit()"
 						src="../../images/update.png" alt="update" title="Update"/>
-					<img src="../../images/delete.png" alt="delete"/>
+					<img onClick="if(confirm('Please confirm your deletion')){document.getElementById('type').value='delete';document.getElementById('selected').value='module';document.getElementById('formadmin').submit()}"
+						src="../../images/delete.png" alt="delete" title="Delete"/>
 				</span>
 				<br/><br/><a href="index"><button type="button">Return to Index</button></a>
 			</util:panel>

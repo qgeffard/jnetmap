@@ -3,11 +3,13 @@ package org.sio.jnetmap.domain;
 import java.util.List;
 
 import javax.persistence.ManyToOne;
+import javax.persistence.Query;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
 import org.springframework.roo.addon.tostring.RooToString;
+import org.springframework.transaction.annotation.Transactional;
 
 @RooJavaBean
 @RooToString
@@ -15,7 +17,7 @@ import org.springframework.roo.addon.tostring.RooToString;
 public class Band {
 
 	@NotNull
-	@Size(min = 2, max = 30)
+	@Size(min = 1, max = 30)
 	private String numBand;
 
 	@ManyToOne
@@ -51,5 +53,21 @@ public class Band {
 	public static Band findBandOfOutlet(Long id) {
         return (Band) entityManager().createNativeQuery("SELECT b.* FROM Band b, Outlet o WHERE o.band_outlet=b.id and o.id="+id, Band.class).getSingleResult();
     }
-
+	
+	public static Band maxId() {
+		return entityManager().createQuery(
+				"SELECT o FROM Band o WHERE o.id=(SELECT MAX(b.id) FROM Band b)", Band.class).getSingleResult();
+	}
+	
+	@Transactional
+	public void insert() {
+		Query query = entityManager
+				.createNativeQuery("INSERT INTO Band(id, num_band, dispatcher_band)"
+						+ " VALUES(?,?,?)");
+		query.setParameter(1, this.getId());
+		query.setParameter(2, this.getNumBand());
+		query.setParameter(3, this.getDispatcherBand());
+		query.executeUpdate();
+	}
+	
 }
